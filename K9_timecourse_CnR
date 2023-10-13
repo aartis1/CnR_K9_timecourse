@@ -16,16 +16,16 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 ##start with trimming raw reads##
 ml Trim_Galore
 #starting with raw files in $OUTDIR/raw
-mkdir $OUTDIR/trimmed
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/24hpf_IgG_R1.fastq.gz $OUTDIR/raw/24hpf_IgG_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/24hpf_K9_1_R1.fastq.gz $OUTDIR/raw/24hpf_K9_1_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/24hpf_K9_2_R1.fastq.gz $OUTDIR/raw/24hpf_K9_2_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/24hpf_K9_3_R1.fastq.gz $OUTDIR/raw/24hpf_K9_3_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/2.5hpf_IgG_1_R1.fastq.gz $OUTDIR/raw/2.5hpf_IgG_1_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/2.5hpf_K9_1_R1.fastq.gz $OUTDIR/raw/2.5hpf_K9_1_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/2.5hpf_K9_2_R1.fastq.gz $OUTDIR/raw/2.5hpf_K9_2_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/2.5hpf_K9_3_R1.fastq.gz $OUTDIR/raw/2.5hpf_K9_3_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/4.5hpf_IgG_1_R1.fastq.gz $OUTDIR/raw/4.5hpf_IgG_1_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/4.5hpf_K9_1_R1.fastq.gz $OUTDIR/raw/4.5hpf_K9_1_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/4.5hpf_K9_2_R1.fastq.gz $OUTDIR/raw/4.5hpf_K9_2_R2.fastq.gz
-trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/4.5hpf_K9_3_R1.fastq.gz $OUTDIR/raw/4.5hpf_K9_3_R2.fastq.gz
+#mkdir $OUTDIR/trimmed
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/24hpf_IgG_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/24hpf_IgG_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/24hpf_K9_1_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/24hpf_K9_1_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/24hpf_K9_2_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/24hpf_K9_2_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/24hpf_K9_3_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/24hpf_K9_3_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/2.5hpf_IgG_1_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/2.5hpf_IgG_1_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/2.5hpf_K9_1_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/2.5hpf_K9_1_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/2.5hpf_K9_2_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/2.5hpf_K9_2_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/2.5hpf_K9_3_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/2.5hpf_K9_3_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/4.5hpf_IgG_1_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/4.5hpf_IgG_1_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/4.5hpf_K9_1_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/4.5hpf_K9_1_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/4.5hpf_K9_2_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/4.5hpf_K9_2_R2.fastq.gz
+trim_galore --fastqc -j 8 --output_dir $OUTDIR/trimmed --paired $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/4.5hpf_K9_3_R1.fastq.gz $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/4.5hpf_K9_3_R2.fastq.gz
