@@ -50,7 +50,7 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # bowtie2 --local --very-sensitive-local --phred33 --no-unal -p 24 -x $OUTDIR/ref/danio_ref -1 $OUTDIR/trimmed/24hpf_K9_3_R1_val_1.fq.gz -2 $OUTDIR/trimmed/24hpf_K9_3_R2_val_2.fq.gz -S $OUTDIR/sam_files/24hpf_K9_3.sam
 
 #creating bam files WITH HEADER from previously created sam files
-module load SAMtools
+# module load SAMtools
 # mkdir $OUTDIR/bam_files
 # samtools view -bS -h $OUTDIR/sam_files/2.5hpf_IgG_.sam  > $OUTDIR/bam_files/2.5hpf_IgG.bam
 # samtools view -bS -h $OUTDIR/sam_files/2.5hpf_K9_1.sam  > $OUTDIR/bam_files/2.5hpf_K9_1.bam
@@ -66,15 +66,26 @@ module load SAMtools
 # samtools view -bS -h $OUTDIR/sam_files/24hpf_K9_3.sam  > $OUTDIR/bam_files/24hpf_K9_3.bam
 
 ##sorting bam files
-samtools sort $OUTDIR/bam_files/2.5hpf_IgG.bam -o $OUTDIR/bam_files/2.5hpf_IgG.sorted.bam
-samtools sort $OUTDIR/bam_files/2.5hpf_K9_1.bam -o $OUTDIR/bam_files/2.5hpf_K9_1.sorted.bam
-samtools sort $OUTDIR/bam_files/2.5hpf_K9_2.bam -o $OUTDIR/bam_files/2.5hpf_K9_2.sorted.bam
-samtools sort $OUTDIR/bam_files/2.5hpf_K9_3.bam -o $OUTDIR/bam_files/2.5hpf_K9_3.sorted.bam
-samtools sort $OUTDIR/bam_files/4.5hpf_IgG.bam -o $OUTDIR/bam_files/4.5hpf_IgG.sorted.bam
-samtools sort $OUTDIR/bam_files/4.5hpf_K9_1.bam -o $OUTDIR/bam_files/4.5hpf_K9_1.sorted.bam
-samtools sort $OUTDIR/bam_files/4.5hpf_K9_2.bam -o $OUTDIR/bam_files/4.5hpf_K9_2.sorted.bam
-samtools sort $OUTDIR/bam_files/4.5hpf_K9_3.bam -o $OUTDIR/bam_files/4.5hpf_K9_3.sorted.bam
-samtools sort $OUTDIR/bam_files/24hpf_IgG.bam -o $OUTDIR/bam_files/24hpf_IgG.sorted.bam
-samtools sort $OUTDIR/bam_files/24hpf_K9_1.bam -o $OUTDIR/bam_files/24hpf_K9_1.sorted.bam
-samtools sort $OUTDIR/bam_files/24hpf_K9_2.bam -o $OUTDIR/bam_files/24hpf_K9_2.sorted.bam
-samtools sort $OUTDIR/bam_files/24hpf_K9_3.bam -o $OUTDIR/bam_files/24hpf_K9_3.sorted.bam
+# samtools sort $OUTDIR/bam_files/2.5hpf_IgG.bam -o $OUTDIR/bam_files/2.5hpf_IgG.sorted.bam
+# samtools sort $OUTDIR/bam_files/2.5hpf_K9_1.bam -o $OUTDIR/bam_files/2.5hpf_K9_1.sorted.bam
+# samtools sort $OUTDIR/bam_files/2.5hpf_K9_2.bam -o $OUTDIR/bam_files/2.5hpf_K9_2.sorted.bam
+# samtools sort $OUTDIR/bam_files/2.5hpf_K9_3.bam -o $OUTDIR/bam_files/2.5hpf_K9_3.sorted.bam
+# samtools sort $OUTDIR/bam_files/4.5hpf_IgG.bam -o $OUTDIR/bam_files/4.5hpf_IgG.sorted.bam
+# samtools sort $OUTDIR/bam_files/4.5hpf_K9_1.bam -o $OUTDIR/bam_files/4.5hpf_K9_1.sorted.bam
+# samtools sort $OUTDIR/bam_files/4.5hpf_K9_2.bam -o $OUTDIR/bam_files/4.5hpf_K9_2.sorted.bam
+# samtools sort $OUTDIR/bam_files/4.5hpf_K9_3.bam -o $OUTDIR/bam_files/4.5hpf_K9_3.sorted.bam
+# samtools sort $OUTDIR/bam_files/24hpf_IgG.bam -o $OUTDIR/bam_files/24hpf_IgG.sorted.bam
+# samtools sort $OUTDIR/bam_files/24hpf_K9_1.bam -o $OUTDIR/bam_files/24hpf_K9_1.sorted.bam
+# samtools sort $OUTDIR/bam_files/24hpf_K9_2.bam -o $OUTDIR/bam_files/24hpf_K9_2.sorted.bam
+# samtools sort $OUTDIR/bam_files/24hpf_K9_3.bam -o $OUTDIR/bam_files/24hpf_K9_3.sorted.bam
+
+#DNA-spike in
+mkdir $OUTDIR/DNA_spike_in_results
+# Call your script with the provided arguments
+mkdir $OUTDIR/bedgraphs
+for file in $OUTDIR/bam_files/*sorted.bam;
+do
+  base=$(basename "${file}" .sorted.bam)
+  sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bedgraphs $base $OUTDIR/trimmed/${base}*val_1.fq.gz \
+  $OUTDIR/trimmed/${base}*val_2.fq.gz $file bga $OUTDIR/ref/chrNameLength.txt
+done
