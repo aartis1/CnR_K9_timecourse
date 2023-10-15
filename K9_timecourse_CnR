@@ -51,16 +51,30 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 
 #creating bam files WITH HEADER from previously created sam files
 module load SAMtools
-mkdir $OUTDIR/bam_files
-samtools view -bS -h $OUTDIR/sam_files/2.5hpf_IgG_.sam  > $OUTDIR/bam_files/2.5hpf_IgG.bam
-samtools view -bS -h $OUTDIR/sam_files/2.5hpf_K9_1.sam  > $OUTDIR/bam_files/2.5hpf_K9_1.bam
-samtools view -bS -h $OUTDIR/sam_files/2.5hpf_K9_2.sam  > $OUTDIR/bam_files/2.5hpf_K9_2.bam
-samtools view -bS -h $OUTDIR/sam_files/2.5hpf_K9_3.sam  > $OUTDIR/bam_files/2.5hpf_K9_3.bam
-samtools view -bS -h $OUTDIR/sam_files/4.5hpf_IgG.sam  > $OUTDIR/bam_files/4.5hpf_IgG.bam
-samtools view -bS -h $OUTDIR/sam_files/4.5hpf_K9_1.sam  > $OUTDIR/bam_files/4.5hpf_K9_1.bam
-samtools view -bS -h $OUTDIR/sam_files/4.5hpf_K9_2.sam  > $OUTDIR/bam_files/4.5hpf_K9_2.bam
-samtools view -bS -h $OUTDIR/sam_files/4.5hpf_K9_3.sam  > $OUTDIR/bam_files/4.5hpf_K9_3.bam
-samtools view -bS -h $OUTDIR/sam_files/24hpf_IgG.sam  > $OUTDIR/bam_files/24hpf_IgG.bam
-samtools view -bS -h $OUTDIR/sam_files/24hpf_K9_1.sam  > $OUTDIR/bam_files/24hpf_K9_1.bam
-samtools view -bS -h $OUTDIR/sam_files/24hpf_K9_2.sam  > $OUTDIR/bam_files/24hpf_K9_2.bam
-samtools view -bS -h $OUTDIR/sam_files/24hpf_K9_3.sam  > $OUTDIR/bam_files/24hpf_K9_3.bam
+# mkdir $OUTDIR/bam_files
+# samtools view -bS -h $OUTDIR/sam_files/2.5hpf_IgG_.sam  > $OUTDIR/bam_files/2.5hpf_IgG.bam
+# samtools view -bS -h $OUTDIR/sam_files/2.5hpf_K9_1.sam  > $OUTDIR/bam_files/2.5hpf_K9_1.bam
+# samtools view -bS -h $OUTDIR/sam_files/2.5hpf_K9_2.sam  > $OUTDIR/bam_files/2.5hpf_K9_2.bam
+# samtools view -bS -h $OUTDIR/sam_files/2.5hpf_K9_3.sam  > $OUTDIR/bam_files/2.5hpf_K9_3.bam
+# samtools view -bS -h $OUTDIR/sam_files/4.5hpf_IgG.sam  > $OUTDIR/bam_files/4.5hpf_IgG.bam
+# samtools view -bS -h $OUTDIR/sam_files/4.5hpf_K9_1.sam  > $OUTDIR/bam_files/4.5hpf_K9_1.bam
+# samtools view -bS -h $OUTDIR/sam_files/4.5hpf_K9_2.sam  > $OUTDIR/bam_files/4.5hpf_K9_2.bam
+# samtools view -bS -h $OUTDIR/sam_files/4.5hpf_K9_3.sam  > $OUTDIR/bam_files/4.5hpf_K9_3.bam
+# samtools view -bS -h $OUTDIR/sam_files/24hpf_IgG.sam  > $OUTDIR/bam_files/24hpf_IgG.bam
+# samtools view -bS -h $OUTDIR/sam_files/24hpf_K9_1.sam  > $OUTDIR/bam_files/24hpf_K9_1.bam
+# samtools view -bS -h $OUTDIR/sam_files/24hpf_K9_2.sam  > $OUTDIR/bam_files/24hpf_K9_2.bam
+# samtools view -bS -h $OUTDIR/sam_files/24hpf_K9_3.sam  > $OUTDIR/bam_files/24hpf_K9_3.bam
+
+##sorting bam files
+samtools sort $OUTDIR/bam_files/2.5hpf_IgG.bam -o $OUTDIR/bam_files/2.5hpf_IgG.sorted.bam
+samtools sort $OUTDIR/bam_files/2.5hpf_K9_1.bam -o $OUTDIR/bam_files/2.5hpf_K9_1.sorted.bam
+samtools sort $OUTDIR/bam_files/2.5hpf_K9_2.bam -o $OUTDIR/bam_files/2.5hpf_K9_2.sorted.bam
+samtools sort $OUTDIR/bam_files/2.5hpf_K9_3.bam -o $OUTDIR/bam_files/2.5hpf_K9_3.sorted.bam
+samtools sort $OUTDIR/bam_files/4.5hpf_IgG.bam -o $OUTDIR/bam_files/4.5hpf_IgG.sorted.bam
+samtools sort $OUTDIR/bam_files/4.5hpf_K9_1.bam -o $OUTDIR/bam_files/4.5hpf_K9_1.sorted.bam
+samtools sort $OUTDIR/bam_files/4.5hpf_K9_2.bam -o $OUTDIR/bam_files/4.5hpf_K9_2.sorted.bam
+samtools sort $OUTDIR/bam_files/4.5hpf_K9_3.bam -o $OUTDIR/bam_files/4.5hpf_K9_3.sorted.bam
+samtools sort $OUTDIR/bam_files/24hpf_IgG.bam -o $OUTDIR/bam_files/24hpf_IgG.sorted.bam
+samtools sort $OUTDIR/bam_files/24hpf_K9_1.bam -o $OUTDIR/bam_files/24hpf_K9_1.sorted.bam
+samtools sort $OUTDIR/bam_files/24hpf_K9_2.bam -o $OUTDIR/bam_files/24hpf_K9_2.sorted.bam
+samtools sort $OUTDIR/bam_files/24hpf_K9_3.bam -o $OUTDIR/bam_files/24hpf_K9_3.sorted.bam
