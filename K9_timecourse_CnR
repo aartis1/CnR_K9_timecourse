@@ -79,13 +79,20 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # samtools sort $OUTDIR/bam_files/24hpf_K9_2.bam -o $OUTDIR/bam_files/24hpf_K9_2.sorted.bam
 # samtools sort $OUTDIR/bam_files/24hpf_K9_3.bam -o $OUTDIR/bam_files/24hpf_K9_3.sorted.bam
 
+##turning sorted bam files into bed graphs for DNA spike in
+mkdir bed_files
+ml BEDTools
+bedtools bamtobed -i $OUTDIR/bam_files/2.5hpf_IgG.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/2.5hpf_IgG.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/2.5hpf_K9_1.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/2.5hpf_K9_1.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/2.5hpf_K9_2.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/2.5hpf_K9_2.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/2.5hpf_K9_3.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/2.5hpf_K9_3.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/4.5hpf_IgG.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/4.5hpf_IgG.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/4.5hpf_K9_1.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/4.5hpf_K9_1.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/4.5hpf_K9_2.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/4.5hpf_K9_2.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/4.5hpf_K9_3.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/4.5hpf_K9_3.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/24hpf_IgG.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/24hpf_IgG.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/24hpf_K9_1.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/24hpf_K9_1.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/24hpf_K9_2.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/24hpf_K9_2.btb.bed
+bedtools bamtobed -i $OUTDIR/bam_files/24hpf_K9_3.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/24hpf_K9_3.btb.bed
+
 #DNA-spike in
-mkdir $OUTDIR/DNA_spike_in_results
-# Call your script with the provided arguments
-mkdir $OUTDIR/bedgraphs
-for file in $OUTDIR/bam_files/*sorted.bam;
-do
-  base=$(basename "${file}" .sorted.bam)
-  sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bedgraphs $base $OUTDIR/trimmed/${base}*val_1.fq.gz \
-  $OUTDIR/trimmed/${base}*val_2.fq.gz $file bga $OUTDIR/ref/chrNameLength.txt
-done
