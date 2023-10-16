@@ -72,7 +72,7 @@ module load Bowtie2
 
 
 #creating bam files WITH HEADER from previously created sam files
-# module load SAMtools
+module load SAMtools
 # mkdir $OUTDIR/bam_files
                     ##DANIO##
 # samtools view -bS -h $OUTDIR/sam_files/2.5hpf_IgG_.sam  > $OUTDIR/bam_files/2.5hpf_IgG.bam
