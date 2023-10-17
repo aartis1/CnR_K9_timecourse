@@ -190,19 +190,24 @@ module load Bowtie2
 # done
 
 #calling peaks
-mkdir $OUTDIR/peaks
+# mkdir $OUTDIR/peaks
+#
+# for infile in $OUTDIR/bedgraphs/*.norm.bga
+#   do base=$(basename ${infile} .norm.bga)
+#   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
+# done
 
-for infile in $OUTDIR/bedgraphs/*.norm.bga
-  do base=$(basename ${infile} .norm.bga)
-  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
+for infile in $BASEDIR/cutNrun_mods/peaks/*bgato.bed
+  do base=$(basename ${infile} .bgato.bed)
+  makeTagDirectory $BASEDIR/cutNrun_mods/peaks/${base}.BtB.tagdir $infile -format bed
 done
 
-# for infile in $BASEDIR/cutNrun_mods/peaks/*bgato.bed
-#   do base=$(basename ${infile} .bgato.bed)
-#   makeTagDirectory $BASEDIR/cutNrun_mods/peaks/$base.BtB.tagdir $infile -format bed
-# done
-#
 # ##using IgG as input
+#   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
+#   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
+#   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
+
+
 # for infile in $BASEDIR/cutNrun_mods/peaks/*.tagdir
 # do
 #   base=$(basename ${infile} .tagdir)
