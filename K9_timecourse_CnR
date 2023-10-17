@@ -183,11 +183,11 @@ ml BEDTools
 
 #sort bga files from  DNA spike in
 ml ucsc
-for infile in $OUTDIR/bedgraphs/*norm.bga
-do
-  base=$(basename ${infile} .norm.bga)
-  bedSort $infile $OUTDIR/bedgraphs/${base}.norm_sort.bga
-done
+# for infile in $OUTDIR/bedgraphs/*norm.bga
+# do
+#   base=$(basename ${infile} .norm.bga)
+#   bedSort $infile $OUTDIR/bedgraphs/${base}.norm_sort.bga
+# done
 
 ##sorting normalized bga files (peaks can be called directly from bed files)
 mkdir $OUTDIR/peaks
