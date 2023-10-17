@@ -133,7 +133,7 @@ module load Bowtie2
 
 ##turning sorted bam files into bed graphs for DNA spike in
 # mkdir $OUTDIR/bed_files
-ml BEDTools
+# ml BEDTools
 
                         ##DANIO##
 # bedtools bamtobed -i $OUTDIR/bam_files/2.5hpf_IgG.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/2.5hpf_IgG.btb.bed
@@ -188,6 +188,53 @@ ml ucsc
 #   base=$(basename ${infile} .norm.bga)
 #   bedSort $infile $OUTDIR/bedgraphs/${base}.norm_sort.bga
 # done
+
+#calling peaks
+mkdir $OUTDIR/peaks
+
+for infile in $OUTDIR/bedgraphs/*.norm.bga
+  do base=$(basename ${infile} .norm.bga)
+  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
+done
+
+# for infile in $BASEDIR/cutNrun_mods/peaks/*bgato.bed
+#   do base=$(basename ${infile} .bgato.bed)
+#   makeTagDirectory $BASEDIR/cutNrun_mods/peaks/$base.BtB.tagdir $infile -format bed
+# done
+#
+# ##using IgG as input
+# for infile in $BASEDIR/cutNrun_mods/peaks/*.tagdir
+# do
+#   base=$(basename ${infile} .tagdir)
+#   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
+# done
+#
+# for infile in $BASEDIR/cutNrun_mods/peaks/*.txt
+# do
+#   base=$(basename ${infile} .txt)
+#   pos2bed.pl $infile > $BASEDIR/cutNrun_mods/peaks/$base.peaks.bed
+# done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ##sorting normalized bga files (peaks can be called directly from bed files)
 mkdir $OUTDIR/peaks
