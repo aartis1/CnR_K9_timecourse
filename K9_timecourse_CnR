@@ -34,7 +34,7 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # curl -s https://ftp.ensembl.org/pub/release-110/fasta/danio_rerio/dna/Danio_rerio.GRCz11.dna.primary_assembly.fa.gz | gunzip -c > $OUTDIR/ref/danio_refseq.fa
 # curl -s ftp://ftp.ensembl.org/pub/release-98/fasta/danio_rerio/dna/Danio_rerio.GRCz11.dna.primary_assembly.fa.gz | gunzip -c > $OUTDIR/ref/danio_refseq_2.fa
 # curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > $OUTDIR/ref/ecoli_refseq.fa
-module load Bowtie2
+# module load Bowtie2
 
                                                                               ###DANIO####
 
@@ -131,6 +131,13 @@ module load Bowtie2
 # samtools sort $OUTDIR/bam_files/24hpf_K9_2_ecoli.bam -o $OUTDIR/bam_files/24hpf_K9_2.sorted_ecoli.bam
 # samtools sort $OUTDIR/bam_files/24hpf_K9_3_ecoli.bam -o $OUTDIR/bam_files/24hpf_K9_3.sorted_ecoli.bam
 
+#merging IgG bam files for DNA spikein
+ml SAMtools
+samtools merge $OUTDIR/bam_files/timecourse_IgG_danio_merged.bam $OUTDIR/bam_files/2.5hpf_IgG.sorted.bam $OUTDIR/bam_files/4.5hpf_IgG.sorted.bam $OUTDIR/bam_files/24hpf_IgG.sorted.bam
+samtools merge $OUTDIR/bam_files/timecourse_IgG_ecoli_merged.bam $OUTDIR/bam_files/2.5hpf_IgG_ecoli.sorted.bam $OUTDIR/bam_files/4.5hpf_IgG.sorted_ecoli.bam $OUTDIR/bam_files/24hpf_IgG.sorted_ecoli.bam
+# samtools merge $OUTDIR/bam_files/timecourse_IgG_merged.bam $OUTDIR/bam_files/timecourse_IgG_danio_merged.bam $OUTDIR/bam_files/timecourse_IgG_ecoli_merged.bam
+
+
 ##turning sorted bam files into bed graphs for DNA spike in
 # mkdir $OUTDIR/bed_files
 # ml BEDTools
@@ -197,10 +204,10 @@ module load Bowtie2
 #   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
 # done
 
-for infile in $BASEDIR/cutNrun_mods/peaks/*bgato.bed
-  do base=$(basename ${infile} .bgato.bed)
-  makeTagDirectory $BASEDIR/cutNrun_mods/peaks/${base}.BtB.tagdir $infile -format bed
-done
+# for infile in $BASEDIR/cutNrun_mods/peaks/*bgato.bed
+#   do base=$(basename ${infile} .bgato.bed)
+#   makeTagDirectory $BASEDIR/cutNrun_mods/peaks/${base}.BtB.tagdir $infile -format bed
+# done
 
 # ##using IgG as input
 #   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
