@@ -182,7 +182,7 @@ module load Bowtie2
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_K9_3.btb.bed $OUTDIR/bed_files/24hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_K9_3.norm.bga
 
 #sort bga files from  DNA spike in
-ml ucsc
+# ml ucsc
 # for infile in $OUTDIR/bedgraphs/*norm.bga
 # do
 #   base=$(basename ${infile} .norm.bga)
@@ -237,11 +237,11 @@ done
 
 
 ##sorting normalized bga files (peaks can be called directly from bed files)
-mkdir $OUTDIR/peaks
-for infile in $OUTDIR/bedgraphs/.norm_sort.bga
- do base=$(basename ${infile} .norm_sort.bga)
- cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
-done
+# mkdir $OUTDIR/peaks
+# for infile in $OUTDIR/bedgraphs/.norm_sort.bga
+#  do base=$(basename ${infile} .norm_sort.bga)
+#  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
+# done
 
 #making tag directories and calling peaks using IgG as an input
 # module load Homer
