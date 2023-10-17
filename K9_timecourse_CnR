@@ -140,7 +140,7 @@ ml SAMtools
 
 ##turning sorted bam files into bed graphs for DNA spike in
 # mkdir $OUTDIR/bed_files
-# ml BEDTools
+ml BEDTools
 
                         ##DANIO##
 # bedtools bamtobed -i $OUTDIR/bam_files/2.5hpf_IgG.sorted.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/2.5hpf_IgG.btb.bed
@@ -215,11 +215,6 @@ sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/timecourse_IgG_dan
 # done
 
 # ##using IgG as input
-#   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
-#   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
-#   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
-
-
 # for infile in $BASEDIR/cutNrun_mods/peaks/*.tagdir
 # do
 #   base=$(basename ${infile} .tagdir)
