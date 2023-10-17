@@ -195,3 +195,18 @@ for infile in $OUTDIR/bedgraphs/.norm_sort.bga
  do base=$(basename ${infile} .norm_sort.bga)
  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
 done
+
+#making tag directories and calling peaks using IgG as an input
+# module load Homer
+# for infile in $OUTDIR/peaks/*bgato.bed
+#  do
+#  base=$(basename ${infile} .bgato.bed)
+#   makeTagDirectory $OUTDIR/peaks/${base}.BtB.tagdir $infile -format bed
+# done
+#
+# for infile in $OUTDIR/peaks/*tagdir
+# do
+# base=$(basename ${infile} .BtB.tagdir)
+#   findPeaks $infile -style histone -minDist 1000 -i $OUTDIR/peaks/10_gfp_MO_IgG_4_5h.BtB.tagdir -F 4 -gsize 1.5e9 -fdr 0.0001 -o $OUTDIR/peaks/${base}.txt
+# done
+#
