@@ -135,7 +135,7 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 ml SAMtools
 # samtools merge $OUTDIR/bam_files/timecourse_IgG_danio_merged.bam $OUTDIR/bam_files/2.5hpf_IgG.sorted.bam $OUTDIR/bam_files/4.5hpf_IgG.sorted.bam $OUTDIR/bam_files/24hpf_IgG.sorted.bam
 # samtools merge $OUTDIR/bam_files/timecourse_IgG_ecoli_merged.bam $OUTDIR/bam_files/2.5hpf_IgG_ecoli.sorted.bam $OUTDIR/bam_files/4.5hpf_IgG.sorted_ecoli.bam $OUTDIR/bam_files/24hpf_IgG.sorted_ecoli.bam
-samtools merge $OUTDIR/bam_files/timecourse_IgG_merged.bam $OUTDIR/bam_files/timecourse_IgG_danio_merged.bam $OUTDIR/bam_files/timecourse_IgG_ecoli_merged.bam
+# samtools merge $OUTDIR/bam_files/timecourse_IgG_merged.bam $OUTDIR/bam_files/timecourse_IgG_danio_merged.bam $OUTDIR/bam_files/timecourse_IgG_ecoli_merged.bam
 
 
 ##turning sorted bam files into bed graphs for DNA spike in
@@ -169,6 +169,11 @@ samtools merge $OUTDIR/bam_files/timecourse_IgG_merged.bam $OUTDIR/bam_files/tim
 # bedtools bamtobed -i $OUTDIR/bam_files/24hpf_K9_1.sorted_ecoli.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/24hpf_K9_1_ecoli.btb.bed
 # bedtools bamtobed -i $OUTDIR/bam_files/24hpf_K9_2.sorted_ecoli.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/24hpf_K9_2_ecoli.btb.bed
 # bedtools bamtobed -i $OUTDIR/bam_files/24hpf_K9_3.sorted_ecoli.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/24hpf_K9_3_ecoli.btb.bed
+
+
+                        ##IgG###
+ml BEDTools
+bedtools bamtobed -i $OUTDIR/bam_files/timecourse_IgG_merged.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/timecourse_IgG_merged.btb.bed
 
 
 #DNA-spike in normalization
