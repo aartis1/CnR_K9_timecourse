@@ -172,14 +172,13 @@ ml SAMtools
 
 
                         ##IgG###
-ml BEDTools
-bedtools bamtobed -i $OUTDIR/bam_files/timecourse_IgG_danio_merged.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/timecourse_IgG_danio_merged.btb.bed
-bedtools bamtobed -i $OUTDIR/bam_files/timecourse_IgG_ecoli_merged.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/timecourse_IgG_ecoli_merged.btb.bed
+# bedtools bamtobed -i $OUTDIR/bam_files/timecourse_IgG_danio_merged.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/timecourse_IgG_danio_merged.btb.bed
+# bedtools bamtobed -i $OUTDIR/bam_files/timecourse_IgG_ecoli_merged.bam | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bed_files/timecourse_IgG_ecoli_merged.btb.bed
 
 
 #DNA-spike in normalization
 # mkdir $OUTDIR/bedgraphs
-#
+sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/timecourse_IgG_danio_merged.btb.bed $OUTDIR/bed_files/timecourse_IgG_ecoli_merged.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/timecourse_IgG_merged.norm.bga
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_IgG.btb.bed $OUTDIR/bed_files/2.5hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_IgG.norm.bga
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_1.btb.bed $OUTDIR/bed_files/2.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_1.norm.bga
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_2.btb.bed $OUTDIR/bed_files/2.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_2.norm.bga
