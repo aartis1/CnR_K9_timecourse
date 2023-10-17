@@ -165,33 +165,33 @@ ml BEDTools
 
 
 #DNA-spike in normalization
-mkdir $OUTDIR/bedgraphs
-
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_IgG.btb.bed $OUTDIR/bed_files/2.5hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_IgG.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_1.btb.bed $OUTDIR/bed_files/2.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_2.btb.bed $OUTDIR/bed_files/2.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_3.btb.bed $OUTDIR/bed_files/2.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_3.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_IgG.btb.bed $OUTDIR/bed_files/4.5hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_IgG.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_1.btb.bed $OUTDIR/bed_files/4.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_2.btb.bed $OUTDIR/bed_files/4.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_3.btb.bed $OUTDIR/bed_files/4.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_3.norm.bga
-
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_IgG.btb.bed $OUTDIR/bed_files/24hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_IgG.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_K9_1.btb.bed $OUTDIR/bed_files/24hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_K9_2.btb.bed $OUTDIR/bed_files/24hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_K9_3.btb.bed $OUTDIR/bed_files/24hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_K9_3.norm.bga
+# mkdir $OUTDIR/bedgraphs
+#
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_IgG.btb.bed $OUTDIR/bed_files/2.5hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_IgG.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_1.btb.bed $OUTDIR/bed_files/2.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_2.btb.bed $OUTDIR/bed_files/2.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_3.btb.bed $OUTDIR/bed_files/2.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_3.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_IgG.btb.bed $OUTDIR/bed_files/4.5hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_IgG.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_1.btb.bed $OUTDIR/bed_files/4.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_2.btb.bed $OUTDIR/bed_files/4.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_3.btb.bed $OUTDIR/bed_files/4.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_3.norm.bga
+#
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_IgG.btb.bed $OUTDIR/bed_files/24hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_IgG.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_K9_1.btb.bed $OUTDIR/bed_files/24hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_K9_2.btb.bed $OUTDIR/bed_files/24hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_K9_3.btb.bed $OUTDIR/bed_files/24hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_K9_3.norm.bga
 
 #sort bga files from  DNA spike in
-# ml ucsc
-# for infile in $OUTDIR/bedgraphs/*norm.bga
-# do
-#   base=$(basename ${infile} .norm.bga)
-#   bedSort $infile $OUTDIR/bedgraphs/${base}.norm_sort.bga
-# done
+ml ucsc
+for infile in $OUTDIR/bedgraphs/*norm.bga
+do
+  base=$(basename ${infile} .norm.bga)
+  bedSort $infile $OUTDIR/bedgraphs/${base}.norm_sort.bga
+done
 
 ##sorting normalized bga files (peaks can be called directly from bed files)
-# mkdir $OUTDIR/peaks
-# for infile in $OUTDIR/bedgraphs/.norm_sort.bga
-#  do base=$(basename ${infile} .norm_sort.bga)
-#  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
-# done
+mkdir $OUTDIR/peaks
+for infile in $OUTDIR/bedgraphs/.norm_sort.bga
+ do base=$(basename ${infile} .norm_sort.bga)
+ cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
+done
