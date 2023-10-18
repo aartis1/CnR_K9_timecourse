@@ -202,17 +202,17 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # done
 
 #calling peaks
-mkdir $OUTDIR/peaks
-
-for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
-  do base=$(basename ${infile} .norm_sort.bga)
-  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
-done
-
-# for infile in $BASEDIR/cutNrun_mods/peaks/*bgato.bed
-#   do base=$(basename ${infile} .bgato.bed)
-#   makeTagDirectory $BASEDIR/cutNrun_mods/peaks/${base}.BtB.tagdir $infile -format bed
+# mkdir $OUTDIR/peaks
+#
+# for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
+#   do base=$(basename ${infile} .norm_sort.bga)
+#   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
 # done
+
+for infile in $OUTDIR/peaks/*bgato.bed
+  do base=$(basename ${infile} .bgato.bed)
+  makeTagDirectory $OUTDIR/peaks/${base}.BtB.tagdir $infile -format bed
+done
 #
 # ##using IgG as input
 # for infile in $BASEDIR/cutNrun_mods/peaks/*.tagdir
