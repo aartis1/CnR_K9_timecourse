@@ -194,20 +194,20 @@ sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/timecourse_IgG_dan
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/24hpf_K9_3.btb.bed $OUTDIR/bed_files/24hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/24hpf_K9_3.norm.bga
 
 #sort bga files from  DNA spike in
-ml ucsc
-for infile in $OUTDIR/bedgraphs/*norm.bga
-do
-  base=$(basename ${infile} .norm.bga)
-  bedSort $infile $OUTDIR/bedgraphs/${base}.norm_sort.bga
-done
+# ml ucsc
+# for infile in $OUTDIR/bedgraphs/*norm.bga
+# do
+#   base=$(basename ${infile} .norm.bga)
+#   bedSort $infile $OUTDIR/bedgraphs/${base}.norm_sort.bga
+# done
 
 #calling peaks
-# mkdir $OUTDIR/peaks
-#
-# for infile in $OUTDIR/bedgraphs/*.norm.bga
-#   do base=$(basename ${infile} .norm.bga)
-#   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
-# done
+mkdir $OUTDIR/peaks
+
+for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
+  do base=$(basename ${infile} .norm_sort.bga)
+  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
+done
 
 # for infile in $BASEDIR/cutNrun_mods/peaks/*bgato.bed
 #   do base=$(basename ${infile} .bgato.bed)
@@ -221,11 +221,7 @@ done
 #   findPeaks $infile -style histone -minDist 1000 -i $BASEDIR/cutNrun_pol2/peaks/wt_2_IgG.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $BASEDIR/cutNrun_mods/peaks/$base.txt
 # done
 #
-# for infile in $BASEDIR/cutNrun_mods/peaks/*.txt
-# do
-#   base=$(basename ${infile} .txt)
-#   pos2bed.pl $infile > $BASEDIR/cutNrun_mods/peaks/$base.peaks.bed
-# done
+
 
 
 
