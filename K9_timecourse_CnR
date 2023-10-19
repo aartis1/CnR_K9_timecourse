@@ -219,7 +219,7 @@ ml Homer
 for infile in $OUTDIR/peaks/*.tagdir
 do
   base=$(basename ${infile} .tagdir)
-  findPeaks $infile -style histone -minDist 1000 -i $OUTDIR/peaks/IgG tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $OUTDIR/peaks/${base}.txt
+  findPeaks $infile -style histone -minDist 1000 -i $OUTDIR/peaks/timecourse_IgG_merged.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $OUTDIR/peaks/${base}.txt
 done
 
 #changing peak txt files to bed files to input into chipr
@@ -258,9 +258,9 @@ ml deepTools
 # done
 
 ###making bws of the mean of the replicates for profile plots
-bigwigCompare -h -b1 $OUTDIR/bigwigs/bigwigs_AArtis/1_suvAB_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/2_suvAB_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/3_suvAB_MO_K9_4_5h.bw --operation mean -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AArtis/suvAB_MO_K9_4_5h.bw
-bigwigCompare -h -b1 $OUTDIR/bigwigs/bigwigs_AArtis/4_setAB_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/5_setAB_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/6_setAB_MO_K9_4_5h.bw --operation mean -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AArtis/setAB_MO_K9_4_5h.bw
-bigwigCompare -h -b1 $OUTDIR/bigwigs/bigwigs_AArtis/7_gfp_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/8_gfp_MO_K9_4_5h.bw --operation mean -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AArtis/gfp_MO_K9_4_5h.bw
+# bigwigCompare -h -b1 $OUTDIR/bigwigs/bigwigs_AArtis/1_suvAB_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/2_suvAB_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/3_suvAB_MO_K9_4_5h.bw --operation mean -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AArtis/suvAB_MO_K9_4_5h.bw
+# bigwigCompare -h -b1 $OUTDIR/bigwigs/bigwigs_AArtis/4_setAB_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/5_setAB_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/6_setAB_MO_K9_4_5h.bw --operation mean -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AArtis/setAB_MO_K9_4_5h.bw
+# bigwigCompare -h -b1 $OUTDIR/bigwigs/bigwigs_AArtis/7_gfp_MO_K9_4_5h.bw -b2 $OUTDIR/bigwigs/bigwigs_AArtis/8_gfp_MO_K9_4_5h.bw --operation mean -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AArtis/gfp_MO_K9_4_5h.bw
 
 
 
