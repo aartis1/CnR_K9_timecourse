@@ -248,6 +248,9 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 #   awk -F'\t' 'sqrt($10*$10) <=1000' $infile > $OUTDIR/peaks/${base}.1000bp_ann.txt
 # done
 
+
+###DONE! Compare gene lists in excel###
+
 ##making bigwigs of the gene list curated##
 #mkdir $OUTDIR/bigwigs
 # ml ucsc
