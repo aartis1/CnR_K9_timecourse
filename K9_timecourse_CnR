@@ -250,7 +250,7 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 
 ##making bigwigs of the gene list curated##
 #mkdir $OUTDIR/bigwigs
-ml deepTools
+ml ucsc
 for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
 do
  base=$(basename ${infile} .norm_sort.bga)
