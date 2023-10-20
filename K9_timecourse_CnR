@@ -239,7 +239,7 @@ ml Homer
 # curl -s http://ftp.ensembl.org/pub/release-103/gtf/danio_rerio/Danio_rerio.GRCz11.103.gtf.gz | gunzip -c > $OUTDIR/ref/danio_refann.gtf
 # annotatePeaks.pl $OUTDIR/peaks/2.5hpf_K9_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_refann.gtf > $OUTDIR/peaks/2.5hpf_K9_masked_ann.txt
 # annotatePeaks.pl $OUTDIR/peaks/4.5hpf_K9_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_refann.gtf > $OUTDIR/peaks/4.5hpf_K9_masked_ann.txt
-annotatePeaks.pl $OUTDIR/peaks/24hpf_K9_intpeaks_all.bed -gtf $OUTDIR/ref/danio_refann.gtf > $OUTDIR/peaks/24hpf_K9_masked_ann.txt
+annotatePeaks.pl $OUTDIR/peaks/24hpf_K9_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_refann.gtf > $OUTDIR/peaks/24hpf_K9_masked_ann.txt
 
 #now filtering for only peaks that are w/i 1000bps of their annotation:
 # for infile in $OUTDIR/peaks/*_masked_ann.txt
