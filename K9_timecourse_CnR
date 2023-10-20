@@ -230,16 +230,16 @@ ml Homer
 # done
 
 ##intersecting peaks across all replicates with CHIPR
-ml ChIP-R
-chipr -i $OUTDIR/peaks/2.5hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/2.5hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/2.5hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/2.5hpf_K9_intpeaks
-chipr -i $OUTDIR/peaks/4.5hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/4.5hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/4.5hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/4.5hpf_K9_intpeaks
-chipr -i $OUTDIR/peaks/24hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/24hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/24hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/24hpf_K9_intpeaks
+# ml ChIP-R
+# chipr -i $OUTDIR/peaks/2.5hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/2.5hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/2.5hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/2.5hpf_K9_intpeaks
+# chipr -i $OUTDIR/peaks/4.5hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/4.5hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/4.5hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/4.5hpf_K9_intpeaks
+# chipr -i $OUTDIR/peaks/24hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/24hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/24hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/24hpf_K9_intpeaks
 
 ##annotating peak files with masked reference (use HOMER module)
-# curl -s http://ftp.ensembl.org/pub/release-103/gtf/danio_rerio/Danio_rerio.GRCz11.103.gtf.gz | gunzip -c > $OUTDIR/ref/danio_refann.gtf
-# annotatePeaks.pl $OUTDIR/peaks/gfp_MO_K9_4_5h_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_annotation.gtf > $OUTDIR/peaks/suvAB_MO_K9_4_5h_masked_ann.txt
-# annotatePeaks.pl $OUTDIR/peaks/setAB_MO_K9_4_5h_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_annotation.gtf > $OUTDIR/peaks/setAB_MO_K9_4_5h_masked_ann.txt
-# annotatePeaks.pl $OUTDIR/peaks/suvAB_MO_K9_4_5h_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_annotation.gtf > $OUTDIR/peaks/gfp_MO_K9_4_5h_masked_ann.txt
+curl -s http://ftp.ensembl.org/pub/release-103/gtf/danio_rerio/Danio_rerio.GRCz11.103.gtf.gz | gunzip -c > $OUTDIR/ref/danio_refann.gtf
+annotatePeaks.pl $OUTDIR/peaks/2.5hpf_K9_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_refann.gtf > $OUTDIR/peaks/2.5hpf_K9_masked_ann.txt
+annotatePeaks.pl $OUTDIR/peaks/4.5hpf_K9_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_refann.gtf > $OUTDIR/peaks/4.5hpf_K9_masked_ann.txt
+annotatePeaks.pl $OUTDIR/peaks/24hpf_K9_intpeaks_all.bed -gtf $OUTDIR/ref/danio_annotation.gtf > $OUTDIR/peaks/24hpf_K9_masked_ann.txt
 #
 #now filtering for only peaks that are w/i 1000bps of their annotation:
 # for infile in $OUTDIR/peaks/*_masked_ann.txt
