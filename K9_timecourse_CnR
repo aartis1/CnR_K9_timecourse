@@ -216,11 +216,11 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # done
 
 ##using IgG as input
-# for infile in $OUTDIR/peaks/*.tagdir
-# do
-#   base=$(basename ${infile} .tagdir)
-#   findPeaks $infile -style histone -minDist 1000 -i $OUTDIR/peaks/timecourse_IgG_merged.BtB.tagdir -F 6 -gsize 1.5e9 -fdr 0.0001 -o $OUTDIR/peaks/${base}.txt
-# done
+for infile in $OUTDIR/peaks/*.tagdir
+do
+  base=$(basename ${infile} .tagdir)
+  findPeaks $infile -style histone -minDist 1000 -i $OUTDIR/peaks/timecourse_IgG_merged.BtB.tagdir -F 4 -gsize 1.5e9 -o $OUTDIR/peaks/${base}.txt
+done
 
 #changing peak txt files to bed files to input into chipr
 # for infile in $OUTDIR/peaks/*.txt
