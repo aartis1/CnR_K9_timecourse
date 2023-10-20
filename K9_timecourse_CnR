@@ -209,7 +209,7 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 #   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
 # done
 
-ml Homer
+# ml Homer
 # for infile in $OUTDIR/peaks/*bgato.bed
 #   do base=$(basename ${infile} .bgato.bed)
 #   makeTagDirectory $OUTDIR/peaks/${base}.BtB.tagdir $infile -format bed
