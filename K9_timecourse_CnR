@@ -216,24 +216,24 @@ ml Homer
 # done
 
 ##using IgG as input
-for infile in $OUTDIR/peaks/*.tagdir
-do
-  base=$(basename ${infile} .tagdir)
-  findPeaks $infile -style histone -minDist 1000 -i $OUTDIR/peaks/timecourse_IgG_merged.BtB.tagdir -F 4 -gsize 1.5e9 -o $OUTDIR/peaks/${base}.txt
-done
-
-#changing peak txt files to bed files to input into chipr
-# for infile in $OUTDIR/peaks/*.txt
+# for infile in $OUTDIR/peaks/*.tagdir
 # do
-#  base=$(basename ${infile} .txt)
-#  sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks/${base}.peaks.bed
+#   base=$(basename ${infile} .tagdir)
+#   findPeaks $infile -style histone -minDist 1000 -i $OUTDIR/peaks/timecourse_IgG_merged.BtB.tagdir -F 4 -gsize 1.5e9 -o $OUTDIR/peaks/${base}.txt
 # done
 
+#changing peak txt files to bed files to input into chipr
+for infile in $OUTDIR/peaks/*.txt
+do
+ base=$(basename ${infile} .txt)
+ sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks/${base}.peaks.bed
+done
+
 ##intersecting peaks across all replicates with CHIPR
-# ml ChIP-R
-# chipr -i $OUTDIR/peaks/2.5hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/2.5hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/2.5hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/2.5hpf_K9_intpeaks
-# chipr -i $OUTDIR/peaks/4.5hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/4.5hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/4.5hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/4.5hpf_K9_intpeaks
-# chipr -i $OUTDIR/peaks/24hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/24hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/24hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/24hpf_K9_intpeaks
+ml ChIP-R
+chipr -i $OUTDIR/peaks/2.5hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/2.5hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/2.5hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/2.5hpf_K9_intpeaks
+chipr -i $OUTDIR/peaks/4.5hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/4.5hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/4.5hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/4.5hpf_K9_intpeaks
+chipr -i $OUTDIR/peaks/24hpf_K9_1.BtB.peaks.bed $OUTDIR/peaks/24hpf_K9_2.BtB.peaks.bed $OUTDIR/peaks/24hpf_K9_3.BtB.peaks.bed -m 2 -o $OUTDIR/peaks/24hpf_K9_intpeaks
 
 ##annotating peak files with masked reference (use HOMER module)
 # curl -s http://ftp.ensembl.org/pub/release-103/gtf/danio_rerio/Danio_rerio.GRCz11.103.gtf.gz | gunzip -c > $OUTDIR/ref/danio_refann.gtf
