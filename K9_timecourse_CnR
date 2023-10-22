@@ -223,11 +223,11 @@ ml Homer
 # done
 
 #changing peak txt files to bed files to input into chipr
-for infile in $OUTDIR/peaks/*.txt
-do
- base=$(basename ${infile} .txt)
- sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks/${base}.peaks.bed
-done
+# for infile in $OUTDIR/peaks/*.txt
+# do
+#  base=$(basename ${infile} .txt)
+#  sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks/${base}.peaks.bed
+# done
 
 ##intersecting peaks across all replicates with CHIPR
 ml ChIP-R
