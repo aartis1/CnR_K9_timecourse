@@ -209,7 +209,7 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 #   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
 # done
 
-ml Homer
+# ml Homer
 # for infile in $OUTDIR/peaks/*bgato.bed
 #   do base=$(basename ${infile} .bgato.bed)
 #   makeTagDirectory $OUTDIR/peaks/${base}.BtB.tagdir $infile -format bed
@@ -242,23 +242,23 @@ ml Homer
 # annotatePeaks.pl $OUTDIR/peaks/24hpf_K9_intpeaks_all.bed danRer11 -gtf $OUTDIR/ref/danio_refann.gtf > $OUTDIR/peaks/24hpf_K9_masked_ann.txt
 
 #now filtering for only peaks that are w/i 1000bps of their annotation:
-for infile in $OUTDIR/peaks/*_masked_ann.txt
-do
-  base=$(basename ${infile} _masked_ann.txt)
-  awk -F'\t' 'sqrt($10*$10) <=1000' $infile > $OUTDIR/peaks/${base}.1000bp_ann.txt
-done
+# for infile in $OUTDIR/peaks/*_masked_ann.txt
+# do
+#   base=$(basename ${infile} _masked_ann.txt)
+#   awk -F'\t' 'sqrt($10*$10) <=1000' $infile > $OUTDIR/peaks/${base}.1000bp_ann.txt
+# done
 
 
 ###DONE! Compare gene lists in excel###
 
 ##making bigwigs of the gene list curated##
 #mkdir $OUTDIR/bigwigs
-# ml ucsc
-# for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
-# do
-#  base=$(basename ${infile} .norm_sort.bga)
-# bedGraphToBigWig $infile $OUTDIR/ref/chrNameLength.txt $OUTDIR/bigwigs/bigwigs_AA/${base}.bw
-# done
+ml ucsc
+for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
+do
+ base=$(basename ${infile} .norm_sort.bga)
+bedGraphToBigWig $infile $OUTDIR/ref/chrNameLength.txt $OUTDIR/bigwigs/bigwigs_AA/${base}.bw
+done
 
 ###making bws of the mean of the replicates for profile plots
 # ml deepTools
