@@ -14,6 +14,7 @@
 OUTDIR="/scratch/ara67776/CnR_timecourse"
 
 ##start with trimming raw reads##
+mkdir $OUTDIR/trimmed_2
 for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*_R1.fastq.gz;
 do
  if [[ $prefix ]]; then
@@ -265,12 +266,12 @@ done
 
 ##making bigwigs of the gene list curated##
 #mkdir $OUTDIR/bigwigs
-ml ucsc
-for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
-do
- base=$(basename ${infile} .norm_sort.bga)
-bedGraphToBigWig $infile $OUTDIR/ref/chrNameLength.txt $OUTDIR/bigwigs/bigwigs_AA/${base}.bw
-done
+# ml ucsc
+# for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
+# do
+#  base=$(basename ${infile} .norm_sort.bga)
+# bedGraphToBigWig $infile $OUTDIR/ref/chrNameLength.txt $OUTDIR/bigwigs/bigwigs_AA/${base}.bw
+# done
 
 ###making bws of the mean of the replicates for profile plots
 # ml deepTools
