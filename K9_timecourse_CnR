@@ -13,31 +13,39 @@
 #set output directory
 OUTDIR="/scratch/ara67776/CnR_timecourse"
 
-##start with trimming raw reads##
-# for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*_R1.fastq.gz;
+##start with trimming raw reads an aligning to danio genome (can replace lines 49-203 )##
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 2.5hpf_IgG_1_R1.fastq.gz -m one 2.5hpf_IgG_1_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 2.5hpf_K9_1_R1.fastq.gz -m one 2.5hpf_K9_1_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 2.5hpf_K9_2_R1.fastq.gz -m one 2.5hpf_K9_2_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 2.5hpf_K9_3_R1.fastq.gz -m one 2.5hpf_K9_3_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 4.5hpf_IgG_1_R1.fastq.gz -m one 4.5hpf_IgG_1_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 4.5hpf_K9_1_R1.fastq.gz -m one 4.5hpf_K9_1_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 4.5hpf_K9_2_R1.fastq.gz -m one 4.5hpf_K9_2_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 4.5hpf_K9_3_R1.fastq.gz -m one 4.5hpf_K9_3_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 24hpf_IgG_R1.fastq.gz -m one 24hpf_IgG_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 24hpf_K9_1_R1.fastq.gz -m one 24hpf_K9_1_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 24hpf_K9_2_R1.fastq.gz -m one 24hpf_K9_2_R2.fastq.gz
+sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 24hpf_K9_3_R1.fastq.gz -m one 24hpf_K9_3_R2.fastq.gz
+
+###aligning to ecoli genome
+# curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > $BASEDIR/ecoli_refseq.fa
+###note here that STAR suggests SAindex = 10 but that makes the alignment FAIL, do 8 instead
+# ml STAR
+# STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDir $BASEDIR/ecoli_genome --genomeFastaFiles $BASEDIR/ecoli_refseq.fa
+#
+# for file in $BASEDIR/trimmed/*_val_*.fq.gz;
 # do
-#  if [[ $prefix ]]; then
-#        base=$(basename ${first} _R1_fastq.gz)
-#        sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n $base -m one $first $file
-#        prefix=
-#    else
-#        first=$file
-#        prefix=${file%%_*}
-#    fi
+#   if [[ $prefix ]]; then
+#         base=$(basename ${first} _R1_val_1.fq.gz)
+#         STAR --runThreadN 20 --genomeDir $BASEDIR/ecoli_genome --outFileNamePrefix $BASEDIR/bams/"$base"_ecoli \
+#         --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
+#         --outSAMmultNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
+#         prefix=
+#     else
+#         first=$file
+#         prefix=${file%%_*}
+#     fi
 # done
-
-
-for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*_R1.fastq.gz;
-do
- if [[ $prefix ]]; then
-       base=$(basename ${first} _R1_fastq.gz)
-       echo $first $file
-       prefix=
-   else
-       first=$file
-       prefix=${file%%_*}
-   fi
-done
 
 # ml Trim_Galore
 #starting with raw files in $OUTDIR/raw
