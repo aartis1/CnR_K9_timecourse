@@ -14,10 +14,10 @@
 OUTDIR="/scratch/ara67776/CnR_timecourse"
 
 ##start with trimming raw reads##
-for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*.fastq.gz;
+for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*_R1.fastq.gz;
 do
  if [[ $prefix ]]; then
-       base=$(basename ${first} .fastq.gz)
+       base=$(basename ${first} _R1_fastq.gz)
        sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n $base -m one $first $file
        prefix=
    else
