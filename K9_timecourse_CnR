@@ -27,7 +27,7 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 24hpf_K9_2_R1.fastq.gz -m one 24hpf_K9_2_R2.fastq.gz
 # sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 24hpf_K9_3_R1.fastq.gz -m one 24hpf_K9_3_R2.fastq.gz
 
-ml STAR
+ml STAR                                           
 for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*_R*.fastq.gz;
 do
   if [[ $prefix ]]; then
