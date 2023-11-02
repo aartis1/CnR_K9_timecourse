@@ -3,7 +3,7 @@
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1	                                # Single task job
 #SBATCH --cpus-per-task=24		                            # Number of cores per task - match this to the num_threads used by BLAST
-#SBATCH --mem=40gb			                                # Total memory for job
+#SBATCH --mem=120gb			                                # Total memory for job
 #SBATCH --time=48:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/scratch/ara67776/CnR_setAB			    # Location of standard output and error log files (replace cbergman with your myid)
 #SBATCH --mail-user=ara67776@uga.edu                    # Where to send mail (replace cbergman with your myid)
@@ -27,12 +27,34 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 24hpf_K9_2_R1.fastq.gz -m one 24hpf_K9_2_R2.fastq.gz
 # sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n 24hpf_K9_3_R1.fastq.gz -m one 24hpf_K9_3_R2.fastq.gz
 
+# ml STAR
+# for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*_R*.fastq.gz;
+# do
+#   if [[ $prefix ]]; then
+#         base=$(basename ${first} _R1.fastq.gz)
+#         sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n $base -m one $first $file
+#         prefix=
+#     else
+#         first=$file
+#         prefix=${file%%_*}
+#     fi
+# done
+
+
+
+###aligning to ecoli genome
+curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > $OUTDIR/ecoli_refseq.fa
+###note here that STAR suggests SAindex = 10 but that makes the alignment FAIL, do 8 instead
 ml STAR
-for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*_R*.fastq.gz;
+STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDir $OUTDIR/ecoli_genome --genomeFastaFiles $OUTDIR/ecoli_refseq.fa
+
+for file in $OUTDIR/trimmed/*_val_*.fq.gz;
 do
   if [[ $prefix ]]; then
-        base=$(basename ${first} _R1.fastq.gz)
-        sh /home/ara67776/scripts/PE_trim_and_star.sh -o $OUTDIR -n $base -m one $first $file
+        base=$(basename ${first} _R1_val_1.fq.gz)
+        STAR --runThreadN 20 --genomeDir $OUTDIR/ecoli_genome --outFileNamePrefix $BASEDIR/bams/"$base"_ecoli \
+        --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
+        --outSAMmultNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
         prefix=
     else
         first=$file
@@ -40,27 +62,16 @@ do
     fi
 done
 
-
-
-###aligning to ecoli genome
-# curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > $BASEDIR/ecoli_refseq.fa
-###note here that STAR suggests SAindex = 10 but that makes the alignment FAIL, do 8 instead
-# ml STAR
-# STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDir $BASEDIR/ecoli_genome --genomeFastaFiles $BASEDIR/ecoli_refseq.fa
+####Remove PCR duplicates
+# ml picard
+# module load SAMtools
 #
-# for file in $BASEDIR/trimmed/*_val_*.fq.gz;
+# for infile in $OUTDIR/bams/*q1.bam
 # do
-#   if [[ $prefix ]]; then
-#         base=$(basename ${first} _R1_val_1.fq.gz)
-#         STAR --runThreadN 20 --genomeDir $BASEDIR/ecoli_genome --outFileNamePrefix $BASEDIR/bams/"$base"_ecoli \
-#         --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
-#         --outSAMmultNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
-#         prefix=
-#     else
-#         first=$file
-#         prefix=${file%%_*}
-#     fi
+#   base=$(basename ${infile} _q1.bam)
+#   java -jar $EBROOTPICARD/picard.jar MarkDuplicates -I $infile -M $OUTDIR/bams/"$base"_dupmetrics.txt -O $BASEDIR/bams/"$base"_nodups.bam --REMOVE_DUPLICATES true
 # done
+
 
 # ml Trim_Galore
 #starting with raw files in $OUTDIR/raw
