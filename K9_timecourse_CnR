@@ -66,18 +66,17 @@ ml SAMtools
 # samtools merge $OUTDIR/bams/2.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/2.5hpf_IgG_1_ecoliAligned.sortedByCoord.out.bam $OUTDIR/bams/2.5hpf_IgG_2_ecoliAligned.sortedByCoord.out.bam
 # samtools merge $OUTDIR/bams/4.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_1_ecoliAligned.sortedByCoord.out.bam $OUTDIR/bams/4.5hpf_IgG_2_ecoliAligned.sortedByCoord.out.bam
 
-
-samtools merge $OUTDIR/bams/IgG_danio_nodups.bam $OUTDIR/bams/2.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/24hpf_IgG_nodups.bam
-samtools merge $OUTDIR/bams/IgG_ecoli_nodups.bam $OUTDIR/bams/2.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/24hpf_IgG_ecoliAligned.sortedByCoord.out.bam
+# samtools merge $OUTDIR/bams/IgG_danio_nodups.bam $OUTDIR/bams/2.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/24hpf_IgG_nodups.bam
+# samtools merge $OUTDIR/bams/IgG_ecoli_nodups.bam $OUTDIR/bams/2.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/24hpf_IgG_ecoliAligned.sortedByCoord.out.bam
 
 #Now we need to extract all the aligned reads in preperation for spike in normalization
-# ml BEDTools
-#
-# for infile in $OUTDIR/bams/*nodups.bam
-# do
-#   base=$(basename ${infile} .bam)
-#   bedtools bamtobed -i $infile | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bams/$base.btb.bed
-# done
+ml BEDTools
+
+for infile in $OUTDIR/bams/*nodups.bam
+do
+  base=$(basename ${infile} .bam)
+  bedtools bamtobed -i $infile | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bams/$base.btb.bed
+done
 
 ##spike in normalization
 # mkdir $OUTDIR/bdgrphs
