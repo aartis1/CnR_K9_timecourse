@@ -60,12 +60,15 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 
 #merging IgG sampled together to create uniformity in peak calling later
 ml SAMtools
-samtools merge $OUTDIR/bams/2.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/2.5hpf_IgG_1_nodups.bam $OUTDIR/bams/2.5hpf_IgG_2_q1.bam
-samtools merge $OUTDIR/bams/4.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_1_nodups.bam $OUTDIR/bams/4.5hpf_IgG_2_nodups.bam
+# samtools merge $OUTDIR/bams/2.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/2.5hpf_IgG_1_nodups.bam $OUTDIR/bams/2.5hpf_IgG_2_q1.bam
+# samtools merge $OUTDIR/bams/4.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_1_nodups.bam $OUTDIR/bams/4.5hpf_IgG_2_nodups.bam
 
-# samtools merge $OUTDIR/bams/IgG_danio_nodups.bam $OUTDIR/bams/2.5hpf_IgG.sorted.bam $OUTDIR/bams/4.5hpf_IgG.sorted.bam $OUTDIR/bams/24hpf_IgG.sorted.bam
+samtools merge $OUTDIR/bams/2.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/2.5hpf_IgG_1_ecoliAligned.sortedByCoord.out.bam $OUTDIR/bams/2.5hpf_IgG_2_ecoliAligned.sortedByCoord.out.bam
+samtools merge $OUTDIR/bams/4.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_1_ecoliAligned.sortedByCoord.out.bam $OUTDIR/bams/4.5hpf_IgG_2_ecoliAligned.sortedByCoord.out.bam
+
+
+# samtools merge $OUTDIR/bams/IgG_danio_nodups.bam $OUTDIR/bams/2.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/24hpf_IgG_nodups.bam
 # samtools merge $OUTDIR/bams/IgG_ecoli_nodups.bam $OUTDIR/bams/2.5hpf_IgG_ecoli.sorted.bam $OUTDIR/bams/4.5hpf_IgG.sorted_ecoli.bam $OUTDIR/bams/24hpf_IgG.sorted_ecoli.bam
-# samtools merge $OUTDIR/bams/IgG_danio_nodups.bam $OUTDIR/bams/IgG_ecoli_nodups.bam $OUTDIR/bams/IgG_merged_nodups.bam
 
 
 # samtools merge -f $OUTDIR/bams/mIgG_nodups.bam $OUTDIR/bams/*IgG*[1-3]_nodups.bam
