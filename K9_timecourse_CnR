@@ -86,10 +86,13 @@ do
   if [[ $prefix ]]; then
         base=$(basename ${file} _nodups.btb.bed)
         sh /home/ara67776/scripts/DNAspike_in.kd.sh $file $first \
-        100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/"$base".norm.bga
+        100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/${base}.norm.bga
         prefix=
     else
         first=$file
         prefix=${file%%_*}
     fi
 done
+
+
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/timecourse_IgG_danio_merged.btb.bed $OUTDIR/bed_files/timecourse_IgG_ecoli_merged.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/timecourse_IgG_merged.norm.bga
