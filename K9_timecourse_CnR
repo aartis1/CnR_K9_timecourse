@@ -59,8 +59,8 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # done
 
 #merging IgG sampled together to create uniformity in peak calling later
-# ml SAMtools
-# samtools merge $OUTDIR/bams/2.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/2.5hpf_IgG_1_nodups.bam $OUTDIR/bams/2.5hpf_IgG_2_q1.bam
+ml SAMtools
+samtools merge $OUTDIR/bams/2.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/2.5hpf_IgG_1_nodups.bam $OUTDIR/bams/2.5hpf_IgG_2_nodups.bam
 # samtools merge $OUTDIR/bams/4.5hpf_IgG_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_1_nodups.bam $OUTDIR/bams/4.5hpf_IgG_2_nodups.bam
 
 # samtools merge $OUTDIR/bams/2.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/2.5hpf_IgG_1_ecoliAligned.sortedByCoord.out.bam $OUTDIR/bams/2.5hpf_IgG_2_ecoliAligned.sortedByCoord.out.bam
@@ -70,7 +70,7 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 # samtools merge $OUTDIR/bams/IgG_ecoli_nodups.bam $OUTDIR/bams/2.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/24hpf_IgG_ecoliAligned.sortedByCoord.out.bam
 
 #Now we need to extract all the aligned reads in preperation for spike in normalization
-ml BEDTools
+# ml BEDTools
 #
 # for infile in $OUTDIR/bams/*nodups.bam
 # do
@@ -79,17 +79,33 @@ ml BEDTools
 # done
 
 ##spike in normalization
-mkdir $OUTDIR/bdgrphs
+# mkdir $OUTDIR/bdgrphs
+#
+# for file in $OUTDIR/bams/*.btb.bed;
+# do
+#   if [[ $prefix ]]; then
+#         base=$(basename ${file} _nodups.btb.bed)
+#         sh /home/ara67776/scripts/DNAspike_in.kd.sh $file $first \
+#         100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/${base}.norm.bga
+#         prefix=
+#     else
+#         first=$file
+#         prefix=${file%%_*}
+#     fi
+# done
+#
 
-for file in $OUTDIR/bams/*.btb.bed;
-do
-  if [[ $prefix ]]; then
-        base=$(basename ${file} _nodups.btb.bed)
-        sh /home/ara67776/scripts/DNAspike_in.kd.sh $file $first \
-        100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/${base}.norm.bga
-        prefix=
-    else
-        first=$file
-        prefix=${file%%_*}
-    fi
-done
+
+
+
+
+
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli_nodups.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_IgG_1_nodups.btb.bed $OUTDIR/bed_files/ 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_IgG.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_1.btb.bed $OUTDIR/bed_files/2.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_2.btb.bed $OUTDIR/bed_files/2.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_3.btb.bed $OUTDIR/bed_files/2.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_3.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_IgG.btb.bed $OUTDIR/bed_files/4.5hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_IgG.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_1.btb.bed $OUTDIR/bed_files/4.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_2.btb.bed $OUTDIR/bed_files/4.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_3.btb.bed $OUTDIR/bed_files/4.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_3.norm.bga
