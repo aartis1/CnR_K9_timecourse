@@ -29,24 +29,38 @@ OUTDIR="/scratch/ara67776/CnR_timecourse"
 
 
 ###aligning to ecoli genome
-# curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > $OUTDIR/ecoli_refseq.fa
+curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > $OUTDIR/ecoli_refseq.fa
 ###note here that STAR suggests SAindex = 10 but that makes the alignment FAIL, do 8 instead
-# ml STAR
-# STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDir $OUTDIR/ecoli_genome --genomeFastaFiles $OUTDIR/ecoli_refseq.fa
-#
-# for file in $OUTDIR/trimmed/*_val_*.fq.gz;
-# do
-#   if [[ $prefix ]]; then
-#         base=$(basename ${first} _R1_val_1.fq.gz)
-#         STAR --runThreadN 20 --genomeDir $OUTDIR/ecoli_genome --outFileNamePrefix $OUTDIR/bams/"$base"_ecoli \
-#         --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
-#         --outSAMmultNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
-#         prefix=
-#     else
-#         first=$file
-#         prefix=${file%%_*}
-#     fi
-# done
+ml STAR
+STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDir $OUTDIR/ecoli_genome --genomeFastaFiles $OUTDIR/ecoli_refseq.fa
+
+for file in $OUTDIR/trimmed/"$outname"*_val_*.fq.gz;
+do
+  if [[ $prefix ]]; then
+    if [ $analysis_mode == 'NONE' ] ; then
+      STAR --runThreadN 24 --genomeDir $OUTDIR/genome --outFileNamePrefix $OUTDIR/bams/"$outname" \
+      --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
+      --outFilterMultimapNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
+    elif [ $analysis_mode == 'ONE' ] ; then
+      STAR --runThreadN 24 --genomeDir $OUTDIR/genome --outFileNamePrefix $OUTDIR/bams/"$outname" \
+      --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
+      --outSAMmultNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
+    elif [ $analysis_mode == 'RANDOM'] ; then
+    STAR --runThreadN 24 --genomeDir $OUTDIR/genome --outFileNamePrefix $OUTDIR/bams/"$outname" \
+    --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
+    --outMultimapperOrder Random --outSAMmultNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
+    elif [ $analysis_mode == 'ALL' ] ; then
+      STAR --runThreadN 24 --genomeDir $OUTDIR/genome --outFileNamePrefix $OUTDIR/bams/"$outname" \
+      --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
+      --outSAMprimaryFlag AllBestScore --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
+    fi
+    echo "$outname is finished aligning"
+    prefix=
+  else
+    first=$file
+    prefix=${file%%_*}
+    fi
+done
 
 ####Remove PCR duplicates
 # ml picard
