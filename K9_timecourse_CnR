@@ -55,7 +55,7 @@ do
     fi
     echo "$outname is finished aligning"
     prefix=
-  else
+else
     first=$file
     prefix=${file%%_*}
     fi
