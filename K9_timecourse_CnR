@@ -93,6 +93,3 @@ do
         prefix=${file%%_*}
     fi
 done
-
-
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/timecourse_IgG_danio_merged.btb.bed $OUTDIR/bed_files/timecourse_IgG_ecoli_merged.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/timecourse_IgG_merged.norm.bga
