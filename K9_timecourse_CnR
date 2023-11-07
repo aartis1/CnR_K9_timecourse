@@ -32,7 +32,7 @@ for file in $OUTDIR/raw/CnR_timecourse_K9_2_to_4h/*_R*.fastq.gz;
 do
   if [[ $prefix ]]; then
         base=$(basename ${first} _R1.fastq.gz)
-        sh /home/ara67776/scripts/PE_trim_and_star_2.sh.sh -o $OUTDIR -n $base -m one $first $file
+        sh /home/ara67776/scripts/PE_trim_and_star_2.sh -o $OUTDIR -n $base -m one $first $file
         prefix=
     else
         first=$file
