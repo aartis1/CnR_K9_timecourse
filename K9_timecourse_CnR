@@ -37,19 +37,18 @@ STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDi
 for file in $OUTDIR/trimmed/"$outname"*_val_*.fq.gz;
 do
   if [[ $prefix ]]; then
-    if [ $analysis_mode == 'NONE' ] ; then
       STAR --runThreadN 20 --genomeDir $OUTDIR/ecoli_genome --outFileNamePrefix $OUTDIR/bams/"$base"_ecoli \
       --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
       --outFilterMultimapNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
-    elif [ $analysis_mode == 'ONE' ] ; then
+
       STAR --runThreadN 24 --genomeDir $OUTDIR/ecoli_genome --outFileNamePrefix $OUTDIR/bams/"$base"_ecoli \
       --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
       --outSAMmultNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
-    elif [ $analysis_mode == 'RANDOM' ] ; then
+
     STAR --runThreadN 24 --genomeDir $OUTDIR/ecoli_genome --outFileNamePrefix $OUTDIR/bams/"$outname" \
     --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
     --outMultimapperOrder Random --outSAMmultNmax 1 --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
-    elif [ $analysis_mode == 'ALL' ] ; then
+    
       STAR --runThreadN 24 --genomeDir $OUTDIR/ecoli_genome --outFileNamePrefix $OUTDIR/bams/"$outname" \
       --readFilesCommand zcat --readFilesIn "$first" "$file" --outSAMtype BAM SortedByCoordinate \
       --outSAMprimaryFlag AllBestScore --alignEndsType EndToEnd --alignIntronMax 1 --alignMatesGapMax 2000
