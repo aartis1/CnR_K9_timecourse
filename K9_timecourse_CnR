@@ -41,9 +41,9 @@ ml STAR
 # done
 
 ###aligning to ecoli genome
-curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > $BASEDIR/ecoli_refseq.fa
+# curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > $BASEDIR/ecoli_refseq.fa
 ###note here that STAR suggests SAindex = 10 but that makes the alignment FAIL, do 8 instead
-STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDir $OUTDIR/ecoli_genome --genomeFastaFiles $OUTDIR/ecoli_refseq.fa
+# STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDir $OUTDIR/ecoli_genome --genomeFastaFiles $OUTDIR/ecoli_refseq.fa
 
 # for file in $OUTDIR/trimmed/*_val_*.fq.gz;
 # do
@@ -71,51 +71,51 @@ STAR --runThreadN 20 --genomeSAindexNbases 8 --runMode genomeGenerate --genomeDi
 #     fi
 # done
 
-rm $OUTDIR/bams/"$base"*SJ.out.tab
-
-if [ -d "$OUTDIR/bams/logs" ]
-then
-    mv $OUTDIR/bams/*Log* $OUTDIR/bams/logs
-else
-  mkdir $OUTDIR/bams/logs
-  mv $OUTDIR/bams/*Log* $OUTDIR/bams/logs
-fi
-
-module load SAMtools
-
-for file in $OUTDIR/bams/"$base"*ecoliAligned.sortedByCoord.out.bam
-do
-  base=$(basename ${file} ecoliAligned.sortedByCoord.out.bam)
-  samtools view -bq1 $file | samtools sort - > $OUTDIR/bams/"$base"_ecoli_q1.bam
-done
-
-for infile in $OUTDIR/bams/"$base"*_ecoli_q1.bam
-do
-  base=$(basename ${infile} _ecoli_q1.bam)
-#  echo "$base total aligned reads -" >> $OUTDIR/bams/bam_stats.txt
-  samtools view -@ 24 -F 0x4 $OUTDIR/bams/"$base"ecoliAligned.sortedByCoord.out.bam | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
-#  echo "  $base total aligned reads (unique mappers) -" >> $OUTDIR/bams/bam_stats.txt
-  samtools view -@ 24 -F 0x4 $OUTDIR/bams/"$base"ecoliAligned.sortedByCoord.out.bam | grep "NH:i:1" | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
-#  echo "  $base total aligned reads (multi mappers) -" >> $OUTDIR/bams/bam_stats.txt
-  samtools view -@ 24 -F 0x4 $OUTDIR/bams/"$base"ecoliAligned.sortedByCoord.out.bam | grep -v "NH:i:1" | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
-#  echo "$base q1 aligned reads -" >> $OUTDIR/bams/bam_stats.txt
-  samtools view -@ 24 -F 0x4 $infile | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
-#  echo "  $base q1 aligned reads (unique mappers) -" >> $OUTDIR/bams/bam_stats.txt
-  samtools view -@ 24 -F 0x4 $infile | grep "NH:i:1" | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
-#  echo "  $base q1 aligned reads (multi mappers) -" >> $OUTDIR/bams/bam_stats.txt
-  samtools view -@ 24 -F 0x4 $infile | grep -v "NH:i:1" | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
-done
+# rm $OUTDIR/bams/"$base"*SJ.out.tab
+#
+# if [ -d "$OUTDIR/bams/logs" ]
+# then
+#     mv $OUTDIR/bams/*Log* $OUTDIR/bams/logs
+# else
+#   mkdir $OUTDIR/bams/logs
+#   mv $OUTDIR/bams/*Log* $OUTDIR/bams/logs
+# fi
+#
+# module load SAMtools
+#
+# for file in $OUTDIR/bams/"$base"*ecoliAligned.sortedByCoord.out.bam
+# do
+#   base=$(basename ${file} ecoliAligned.sortedByCoord.out.bam)
+#   samtools view -bq1 $file | samtools sort - > $OUTDIR/bams/"$base"_ecoli_q1.bam
+# done
+#
+# for infile in $OUTDIR/bams/"$base"*_ecoli_q1.bam
+# do
+#   base=$(basename ${infile} _ecoli_q1.bam)
+# #  echo "$base total aligned reads -" >> $OUTDIR/bams/bam_stats.txt
+#   samtools view -@ 24 -F 0x4 $OUTDIR/bams/"$base"ecoliAligned.sortedByCoord.out.bam | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
+# #  echo "  $base total aligned reads (unique mappers) -" >> $OUTDIR/bams/bam_stats.txt
+#   samtools view -@ 24 -F 0x4 $OUTDIR/bams/"$base"ecoliAligned.sortedByCoord.out.bam | grep "NH:i:1" | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
+# #  echo "  $base total aligned reads (multi mappers) -" >> $OUTDIR/bams/bam_stats.txt
+#   samtools view -@ 24 -F 0x4 $OUTDIR/bams/"$base"ecoliAligned.sortedByCoord.out.bam | grep -v "NH:i:1" | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
+# #  echo "$base q1 aligned reads -" >> $OUTDIR/bams/bam_stats.txt
+#   samtools view -@ 24 -F 0x4 $infile | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
+# #  echo "  $base q1 aligned reads (unique mappers) -" >> $OUTDIR/bams/bam_stats.txt
+#   samtools view -@ 24 -F 0x4 $infile | grep "NH:i:1" | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
+# #  echo "  $base q1 aligned reads (multi mappers) -" >> $OUTDIR/bams/bam_stats.txt
+#   samtools view -@ 24 -F 0x4 $infile | grep -v "NH:i:1" | cut -f 1 | sort | uniq | wc -l >> $OUTDIR/bams/bam_stats.txt
+# done
 
 
 ####Remove PCR duplicates
-# ml picard
-# module load SAMtools
-#
-# for infile in $OUTDIR/bams/*q1.bam
-# do
-#   base=$(basename ${infile} _q1.bam)
-#   java -jar $EBROOTPICARD/picard.jar MarkDuplicates -I $infile -M $OUTDIR/bams/"$base"_dupmetrics.txt -O $OUTDIR/bams/"$base"_nodups.bam --REMOVE_DUPLICATES true
-# done
+ml picard
+module load SAMtools
+
+for infile in $OUTDIR/bams/*_ecoli_q1.bam
+do
+  base=$(basename ${infile} _ecoli_q1.bam)
+  java -jar $EBROOTPICARD/picard.jar MarkDuplicates -I $infile -M $OUTDIR/bams/"$base"_dupmetrics.txt -O $OUTDIR/bams/"$base"_ecoli_nodups.bam --REMOVE_DUPLICATES true
+done
 
 #merging IgG sampled together to create uniformity in peak calling later
 # ml SAMtools
@@ -129,13 +129,20 @@ done
 # samtools merge $OUTDIR/bams/IgG_ecoli_nodups.bam $OUTDIR/bams/2.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/24hpf_IgG_ecoliAligned.sortedByCoord.out.bam
 
 #Now we need to extract all the aligned reads in preperation for spike in normalization
-# ml BEDTools
-#
+ml BEDTools
+##DANIO nodups.bam
 # for infile in $OUTDIR/bams/*nodups.bam
 # do
 #   base=$(basename ${infile} .bam)
 #   bedtools bamtobed -i $infile | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bams/$base.btb.bed
 # done
+##Ecoli nodups.bam
+for infile in $OUTDIR/bams/*_ecoli_nodups.bam
+do
+  base=$(basename ${infile} _ecoli_nodups.bam)
+  bedtools bamtobed -i $infile | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bams/${base}_ecoli.btb.bed
+done
+
 
 ##spike in normalization
 # mkdir $OUTDIR/bdgrphs
@@ -154,17 +161,49 @@ done
 # done
 #
 
+##peak calling
+# module load Homer/
+# mkdir $OUTDIR/peaks
+#
+# for infile in $OUTDIR/bdgrphs/*.norm.bga
+#   do base=$(basename ${infile} .norm.bga)
+#   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
+# done
+#
+# for infile in $OUTDIR/peaks/*bgato.bed
+#   do base=$(basename ${infile} .bgato.bed)
+#   makeTagDirectory $OUTDIR/peaks/${base}.BtB.tagdir $infile -format bed
+# done
+#
+# for infile in $OUTDIR/peaks/*K9*.tagdir w/ IgG as an input
+#   do base=$(basename ${infile} .BtB.tagdir)
+#   findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks/*mIgG*.tagdir -o $BASEDIR/peaks/$base.txt
+# done
+#
+# for infile in $BASEDIR/peaks/*.txt
+# do
+#   base=$(basename ${infile} .txt)
+#   sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $BASEDIR/peaks/$base.peaks.bed
+# done
+#
+# module load ChIP-R/1.1.0-foss-2019b-Python-3.7.4
 
+# chipr -i $BASEDIR/peaks/2hpf_K9_1.peaks.bed $BASEDIR/peaks/2hpf_K9_2.peaks.bed -m 2 -o $BASEDIR/peaks/2hpf_K9_repPeaks
+# chipr -i $BASEDIR/peaks/2.5hpf_K9_1.peaks.bed $BASEDIR/peaks/2.5hpf_K9_2.peaks.bed $BASEDIR/peaks/2.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/2.5hpf_K9_repPeaks
+# chipr -i $BASEDIR/peaks/3hpf_K9_1.peaks.bed $BASEDIR/peaks/3hpf_K9_2.peaks.bed $BASEDIR/peaks/3hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/3hpf_K9_repPeaks
+# chipr -i $BASEDIR/peaks/3.5hpf_K9_1.peaks.bed $BASEDIR/peaks/3.5hpf_K9_2.peaks.bed $BASEDIR/peaks/3.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/3.5hpf_K9_repPeaks
+# chipr -i $BASEDIR/peaks/4hpf_K9_1.peaks.bed $BASEDIR/peaks/4hpf_K9_2.peaks.bed $BASEDIR/peaks/4hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/4hpf_K9_repPeaks
+# chipr -i $BASEDIR/peaks/4.5hpf_K9_1.peaks.bed $BASEDIR/peaks/4.5hpf_K9_2.peaks.bed $BASEDIR/peaks/4.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/4.5hpf_K9_repPeaks
 
+###make a blacklist file
+# findPeaks $BASEDIR/peaks/tagdirs/IgG.meh.tagdir -style factor -o $BASEDIR/peaks/IgG.txt
+# sed '/^#/d' $BASEDIR/peaks/IgG.txt | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" "1" "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' > $BASEDIR/peaks/blacklist.bed
+#
+# ml BEDTools
 
-
-
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli_nodups.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_IgG_1_nodups.btb.bed $OUTDIR/bed_files/ 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_IgG.norm.bga
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_1.btb.bed $OUTDIR/bed_files/2.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_1.norm.bga
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_2.btb.bed $OUTDIR/bed_files/2.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_2.norm.bga
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/2.5hpf_K9_3.btb.bed $OUTDIR/bed_files/2.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/2.5hpf_K9_3.norm.bga
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_IgG.btb.bed $OUTDIR/bed_files/4.5hpf_IgG_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_IgG.norm.bga
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_1.btb.bed $OUTDIR/bed_files/4.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_1.norm.bga
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_2.btb.bed $OUTDIR/bed_files/4.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_2.norm.bga
-# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bed_files/4.5hpf_K9_3.btb.bed $OUTDIR/bed_files/4.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/ref/chrNameLength.txt 1 1000 $OUTDIR/bedgraphs/4.5hpf_K9_3.norm.bga
+###intersect the peaks with the blacklist file to make sure we aren't looking at sticky regions before this step
+# for infile in $BASEDIR/peaks/*all.bed
+# do
+#   base=$( basename ${infile} _repPeaks_all.bed)
+#   bedtools intersect -a $infile -b $BASEDIR/peaks/blacklist.bed -v > $BASEDIR/peaks/"$base"_final.bed
+# done
