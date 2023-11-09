@@ -108,14 +108,14 @@ ml STAR
 
 
 ####Remove PCR duplicates
-ml picard
-module load SAMtools
-
-for infile in $OUTDIR/bams/*_ecoli_q1.bam
-do
-  base=$(basename ${infile} _ecoli_q1.bam)
-  java -jar $EBROOTPICARD/picard.jar MarkDuplicates -I $infile -M $OUTDIR/bams/"$base"_dupmetrics.txt -O $OUTDIR/bams/"$base"_ecoli_nodups.bam --REMOVE_DUPLICATES true
-done
+# ml picard
+# module load SAMtools
+#
+# for infile in $OUTDIR/bams/*_ecoli_q1.bam
+# do
+#   base=$(basename ${infile} _ecoli_q1.bam)
+#   java -jar $EBROOTPICARD/picard.jar MarkDuplicates -I $infile -M $OUTDIR/bams/"$base"_dupmetrics.txt -O $OUTDIR/bams/"$base"_ecoli_nodups.bam --REMOVE_DUPLICATES true
+# done
 
 #merging IgG sampled together to create uniformity in peak calling later
 # ml SAMtools
@@ -129,7 +129,7 @@ done
 # samtools merge $OUTDIR/bams/IgG_ecoli_nodups.bam $OUTDIR/bams/2.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/4.5hpf_IgG_ecoli_merge_nodup.bam $OUTDIR/bams/24hpf_IgG_ecoliAligned.sortedByCoord.out.bam
 
 #Now we need to extract all the aligned reads in preperation for spike in normalization
-ml BEDTools
+# ml BEDTools
 ##DANIO nodups.bam
 # for infile in $OUTDIR/bams/*nodups.bam
 # do
@@ -137,28 +137,28 @@ ml BEDTools
 #   bedtools bamtobed -i $infile | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bams/$base.btb.bed
 # done
 ##Ecoli nodups.bam
-for infile in $OUTDIR/bams/*_ecoli_nodups.bam
-do
-  base=$(basename ${infile} _ecoli_nodups.bam)
-  bedtools bamtobed -i $infile | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bams/${base}_ecoli.btb.bed
-done
+# for infile in $OUTDIR/bams/*_ecoli_nodups.bam
+# do
+#   base=$(basename ${infile} _ecoli_nodups.bam)
+#   bedtools bamtobed -i $infile | awk -v OFS='\t' '{len = $3 - $2; print $0, len }' > $OUTDIR/bams/${base}_ecoli.btb.bed
+# done
 
 
 ##spike in normalization
-# mkdir $OUTDIR/bdgrphs
-#
-# for file in $OUTDIR/bams/*.btb.bed;
-# do
-#   if [[ $prefix ]]; then
-#         base=$(basename ${file} _nodups.btb.bed)
-#         sh /home/ara67776/scripts/DNAspike_in.kd.sh $file $first \
-#         100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/${base}.norm.bga
-#         prefix=
-#     else
-#         first=$file
-#         prefix=${file%%_*}
-#     fi
-# done
+mkdir $OUTDIR/bdgrphs
+
+for file in $OUTDIR/bams/*.btb.bed;
+do
+  if [[ $prefix ]]; then
+        base=$(basename ${file} _nodups.btb.bed)
+        sh /home/ara67776/scripts/DNAspike_in.kd.sh $file $first \
+        100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/${base}.norm.bga
+        prefix=
+    else
+        first=$file
+        prefix=${file%%_*}
+    fi
+done
 #
 
 ##peak calling
