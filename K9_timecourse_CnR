@@ -145,48 +145,33 @@ ml STAR
 
 
 ##spike in normalization
-ml BEDTools
-mkdir $OUTDIR/bdgrphs
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli_nodups.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_1__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_2__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_3__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_3.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_1__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_2__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_3__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_3.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_1_nodups.btb.bed $OUTDIR/bams/24hpf_K9_1__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_2_nodups.btb.bed $OUTDIR/bams/24hpf_K9_2__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_3_nodups.btb.bed $OUTDIR/bams/24hpf_K9_3__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_3.norm.bga
-
-#
-# for file in $OUTDIR/bams/*.btb.bed;
-# do
-#   if [[ $prefix ]]; then
-#         base=$(basename ${file} _nodups.btb.bed)
-#         sh /home/ara67776/scripts/DNAspike_in.kd.sh $file $first \
-#         100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/${base}.norm.bga
-#         prefix=
-#     else
-#         first=$file
-#         prefix=${file%%_*}
-#     fi
-# done
-#
+# ml BEDTools
+# mkdir $OUTDIR/bdgrphs
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli_nodups.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_1__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_2__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_3__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_3.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_1__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_2__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_3__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_3.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_1_nodups.btb.bed $OUTDIR/bams/24hpf_K9_1__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_2_nodups.btb.bed $OUTDIR/bams/24hpf_K9_2__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_3_nodups.btb.bed $OUTDIR/bams/24hpf_K9_3__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_3.norm.bga
 
 ##peak calling
-# module load Homer/
-# mkdir $OUTDIR/peaks
-#
-# for infile in $OUTDIR/bdgrphs/*.norm.bga
-#   do base=$(basename ${infile} .norm.bga)
-#   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks/${base}.bgato.bed
-# done
-#
-# for infile in $OUTDIR/peaks/*bgato.bed
-#   do base=$(basename ${infile} .bgato.bed)
-#   makeTagDirectory $OUTDIR/peaks/${base}.BtB.tagdir $infile -format bed
-# done
-#
+module load Homer/
+mkdir $OUTDIR/peaks_2
+
+for infile in $OUTDIR/bdgrphs/*.norm.bga
+  do base=$(basename ${infile} .norm.bga)
+  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks_2/${base}.bgato.bed
+done
+
+for infile in $OUTDIR/peaks_2/*bgato.bed
+  do base=$(basename ${infile} .bgato.bed)
+  makeTagDirectory $OUTDIR/peaks_2/${base}.BtB.tagdir $infile -format bed
+done
+
 # for infile in $OUTDIR/peaks/*K9*.tagdir w/ IgG as an input
 #   do base=$(basename ${infile} .BtB.tagdir)
 #   findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks/*mIgG*.tagdir -o $BASEDIR/peaks/$base.txt
@@ -219,3 +204,40 @@ sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_3_nodups.btb.b
 #   base=$( basename ${infile} _repPeaks_all.bed)
 #   bedtools intersect -a $infile -b $BASEDIR/peaks/blacklist.bed -v > $BASEDIR/peaks/"$base"_final.bed
 # done
+
+##making bigwigs of the gene list curated##
+#mkdir $OUTDIR/bigwigs
+# ml ucsc
+# for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
+# do
+#  base=$(basename ${infile} .norm_sort.bga)
+# bedGraphToBigWig $infile $OUTDIR/ref/chrNameLength.txt $OUTDIR/bigwigs/bigwigs_AA/${base}.bw
+# done
+
+###making bws of the mean of the replicates for profile plots
+# ml deepTools
+# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_1.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_rep1rep2.bw
+# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_AVG.bw
+#
+# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_1.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_rep1rep2.bw
+# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_AVG.bw
+#
+# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_1.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_rep1rep2.bw
+# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_AVG.bw
+
+
+###STUFF TO FIGURE OUT LATER###
+#
+# for file in $OUTDIR/bams/*.btb.bed;
+# do
+#   if [[ $prefix ]]; then
+#         base=$(basename ${file} _nodups.btb.bed)
+#         sh /home/ara67776/scripts/DNAspike_in.kd.sh $file $first \
+#         100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/${base}.norm.bga
+#         prefix=
+#     else
+#         first=$file
+#         prefix=${file%%_*}
+#     fi
+# done
+#
