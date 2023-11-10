@@ -145,6 +145,7 @@ ml STAR
 
 
 ##spike in normalization
+ml BEDTools
 mkdir $OUTDIR/bdgrphs
 sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli_nodups.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
 sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_1__ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_1.norm.bga
