@@ -174,13 +174,13 @@ module load Homer/
 
 for infile in $OUTDIR/peaks_2/*K9*.tagdir w/ IgG as an input
   do base=$(basename ${infile} .BtB.tagdir)
-  findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -o $BASEDIR/peaks/$base.txt
+  findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -o $OUTDIR/peaks_2/${base}.txt
 done
 
 for infile in $OUTDIR/peaks_2/*.txt
 do
   base=$(basename ${infile} .txt)
-  sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks_2/$base.peaks.bed
+  sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks_2/${base}.peaks.bed
 done
 
 ##intersecting peaks across replicates using Chipr
