@@ -160,36 +160,33 @@ ml STAR
 
 ##peak calling
 module load Homer/
-mkdir $OUTDIR/peaks_2
-
-for infile in $OUTDIR/bdgrphs/*.norm.bga
-  do base=$(basename ${infile} .norm.bga)
-  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks_2/${base}.bgato.bed
-done
-
-for infile in $OUTDIR/peaks_2/*bgato.bed
-  do base=$(basename ${infile} .bgato.bed)
-  makeTagDirectory $OUTDIR/peaks_2/${base}.BtB.tagdir $infile -format bed
-done
-
-# for infile in $OUTDIR/peaks/*K9*.tagdir w/ IgG as an input
-#   do base=$(basename ${infile} .BtB.tagdir)
-#   findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks/*mIgG*.tagdir -o $BASEDIR/peaks/$base.txt
+# mkdir $OUTDIR/peaks_2
+#
+# for infile in $OUTDIR/bdgrphs/*.norm.bga
+#   do base=$(basename ${infile} .norm.bga)
+#   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks_2/${base}.bgato.bed
 # done
 #
-# for infile in $BASEDIR/peaks/*.txt
-# do
-#   base=$(basename ${infile} .txt)
-#   sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $BASEDIR/peaks/$base.peaks.bed
+# for infile in $OUTDIR/peaks_2/*bgato.bed
+#   do base=$(basename ${infile} .bgato.bed)
+#   makeTagDirectory $OUTDIR/peaks_2/${base}.BtB.tagdir $infile -format bed
 # done
-#
-# module load ChIP-R/1.1.0-foss-2019b-Python-3.7.4
 
-# chipr -i $BASEDIR/peaks/2hpf_K9_1.peaks.bed $BASEDIR/peaks/2hpf_K9_2.peaks.bed -m 2 -o $BASEDIR/peaks/2hpf_K9_repPeaks
+for infile in $OUTDIR/peaks_2/*K9*.tagdir w/ IgG as an input
+  do base=$(basename ${infile} .BtB.tagdir)
+  findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -o $BASEDIR/peaks/$base.txt
+done
+
+for infile in $OUTDIR/peaks_2/*.txt
+do
+  base=$(basename ${infile} .txt)
+  sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks_2/$base.peaks.bed
+done
+
+##intersecting peaks across replicates using Chipr
+# ml ChIP-R
 # chipr -i $BASEDIR/peaks/2.5hpf_K9_1.peaks.bed $BASEDIR/peaks/2.5hpf_K9_2.peaks.bed $BASEDIR/peaks/2.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/2.5hpf_K9_repPeaks
-# chipr -i $BASEDIR/peaks/3hpf_K9_1.peaks.bed $BASEDIR/peaks/3hpf_K9_2.peaks.bed $BASEDIR/peaks/3hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/3hpf_K9_repPeaks
-# chipr -i $BASEDIR/peaks/3.5hpf_K9_1.peaks.bed $BASEDIR/peaks/3.5hpf_K9_2.peaks.bed $BASEDIR/peaks/3.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/3.5hpf_K9_repPeaks
-# chipr -i $BASEDIR/peaks/4hpf_K9_1.peaks.bed $BASEDIR/peaks/4hpf_K9_2.peaks.bed $BASEDIR/peaks/4hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/4hpf_K9_repPeaks
+# chipr -i $BASEDIR/peaks/4.5hpf_K9_1.peaks.bed $BASEDIR/peaks/4.5hpf_K9_2.peaks.bed $BASEDIR/peaks/4.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/4.5hpf_K9_repPeaks
 # chipr -i $BASEDIR/peaks/4.5hpf_K9_1.peaks.bed $BASEDIR/peaks/4.5hpf_K9_2.peaks.bed $BASEDIR/peaks/4.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/4.5hpf_K9_repPeaks
 
 ###make a blacklist file
