@@ -172,27 +172,27 @@ module load Homer/
 #   makeTagDirectory $OUTDIR/peaks_2/${base}.BtB.tagdir $infile -format bed
 # done
 
-for infile in $OUTDIR/peaks_2/*K9*.tagdir w/ IgG as an input
-  do base=$(basename ${infile} .BtB.tagdir)
-  findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -o $OUTDIR/peaks_2/${base}.txt
-done
-
-for infile in $OUTDIR/peaks_2/*.txt
-do
-  base=$(basename ${infile} .txt)
-  sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks_2/${base}.peaks.bed
-done
+# for infile in $OUTDIR/peaks_2/*K9*.tagdir w/ IgG as an input
+#   do base=$(basename ${infile} .BtB.tagdir)
+#   findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -o $OUTDIR/peaks_2/${base}.txt
+# done
+#
+# for infile in $OUTDIR/peaks_2/*.txt
+# do
+#   base=$(basename ${infile} .txt)
+#   sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks_2/${base}.peaks.bed
+# done
 
 ##intersecting peaks across replicates using Chipr
-# ml ChIP-R
-# chipr -i $BASEDIR/peaks/2.5hpf_K9_1.peaks.bed $BASEDIR/peaks/2.5hpf_K9_2.peaks.bed $BASEDIR/peaks/2.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/2.5hpf_K9_repPeaks
-# chipr -i $BASEDIR/peaks/4.5hpf_K9_1.peaks.bed $BASEDIR/peaks/4.5hpf_K9_2.peaks.bed $BASEDIR/peaks/4.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/4.5hpf_K9_repPeaks
-# chipr -i $BASEDIR/peaks/4.5hpf_K9_1.peaks.bed $BASEDIR/peaks/4.5hpf_K9_2.peaks.bed $BASEDIR/peaks/4.5hpf_K9_3.peaks.bed -m 2 -o $BASEDIR/peaks/4.5hpf_K9_repPeaks
+ml ChIP-R
+chipr -i $OUTDIR/peaks_2/2.5hpf_K9_1.peaks.bed $OUTDIR/peaks_2/2.5hpf_K9_2.peaks.bed $OUTDIR/peaks_2/2.5hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/2.5hpf_K9_repPeaks
+chipr -i $OUTDIR/peaks_2/4.5hpf_K9_1.peaks.bed $OUTDIR/peaks_2/4.5hpf_K9_2.peaks.bed $OUTDIR/peaks_2/4.5hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/4.5hpf_K9_repPeaks
+chipr -i $OUTDIR/peaks_2/24hpf_K9_1.peaks.bed $OUTDIR/peaks_2/24hpf_K9_2.peaks.bed $OUTDIR/peaks_2/24hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/24hpf_K9_repPeaks
 
 ###make a blacklist file
-# findPeaks $BASEDIR/peaks/tagdirs/IgG.meh.tagdir -style factor -o $BASEDIR/peaks/IgG.txt
-# sed '/^#/d' $BASEDIR/peaks/IgG.txt | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" "1" "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' > $BASEDIR/peaks/blacklist.bed
-#
+findPeaks $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -style factor -o $OUTDIR/peaks_2/IgG.txt
+sed '/^#/d' $OUTDIR/peaks_2/IgG.txt | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" "1" "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' > $OUTDIR/peaks_2/blacklist.bed
+
 # ml BEDTools
 
 ###intersect the peaks with the blacklist file to make sure we aren't looking at sticky regions before this step
