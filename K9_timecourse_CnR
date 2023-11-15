@@ -196,7 +196,7 @@ module load Homer/
 ml BEDTools
 
 ##intersect the peaks with the blacklist file to make sure we aren't looking at sticky regions before this step
-for infile in $OUTDIR/peaks_2 /*all.bed
+for infile in $OUTDIR/peaks_2/*all.bed
 do
   base=$( basename ${infile} _repPeaks_all.bed)
   bedtools intersect -a $infile -b $OUTDIR/peaks_2/blacklist.bed -v > $OUTDIR/peaks_2/"${base}"_final.bed
