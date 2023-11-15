@@ -184,23 +184,23 @@ module load Homer/
 # done
 
 ##intersecting peaks across replicates using Chipr
-ml ChIP-R
-chipr -i $OUTDIR/peaks_2/2.5hpf_K9_1.peaks.bed $OUTDIR/peaks_2/2.5hpf_K9_2.peaks.bed $OUTDIR/peaks_2/2.5hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/2.5hpf_K9_repPeaks
-chipr -i $OUTDIR/peaks_2/4.5hpf_K9_1.peaks.bed $OUTDIR/peaks_2/4.5hpf_K9_2.peaks.bed $OUTDIR/peaks_2/4.5hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/4.5hpf_K9_repPeaks
-chipr -i $OUTDIR/peaks_2/24hpf_K9_1.peaks.bed $OUTDIR/peaks_2/24hpf_K9_2.peaks.bed $OUTDIR/peaks_2/24hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/24hpf_K9_repPeaks
+# ml ChIP-R
+# chipr -i $OUTDIR/peaks_2/2.5hpf_K9_1.peaks.bed $OUTDIR/peaks_2/2.5hpf_K9_2.peaks.bed $OUTDIR/peaks_2/2.5hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/2.5hpf_K9_repPeaks
+# chipr -i $OUTDIR/peaks_2/4.5hpf_K9_1.peaks.bed $OUTDIR/peaks_2/4.5hpf_K9_2.peaks.bed $OUTDIR/peaks_2/4.5hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/4.5hpf_K9_repPeaks
+# chipr -i $OUTDIR/peaks_2/24hpf_K9_1.peaks.bed $OUTDIR/peaks_2/24hpf_K9_2.peaks.bed $OUTDIR/peaks_2/24hpf_K9_3.peaks.bed -m 2 -o $OUTDIR/peaks_2/24hpf_K9_repPeaks
 
 ###make a blacklist file
-findPeaks $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -style factor -o $OUTDIR/peaks_2/IgG.txt
-sed '/^#/d' $OUTDIR/peaks_2/IgG.txt | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" "1" "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' > $OUTDIR/peaks_2/blacklist.bed
+# findPeaks $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -style factor -o $OUTDIR/peaks_2/IgG.txt
+# sed '/^#/d' $OUTDIR/peaks_2/IgG.txt | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" "1" "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' > $OUTDIR/peaks_2/blacklist.bed
 
-# ml BEDTools
+ml BEDTools
 
-###intersect the peaks with the blacklist file to make sure we aren't looking at sticky regions before this step
-# for infile in $BASEDIR/peaks/*all.bed
-# do
-#   base=$( basename ${infile} _repPeaks_all.bed)
-#   bedtools intersect -a $infile -b $BASEDIR/peaks/blacklist.bed -v > $BASEDIR/peaks/"$base"_final.bed
-# done
+##intersect the peaks with the blacklist file to make sure we aren't looking at sticky regions before this step
+for infile in $OUTDIR/peaks_2 /*all.bed
+do
+  base=$( basename ${infile} _repPeaks_all.bed)
+  bedtools intersect -a $infile -b $OUTDIR/peaks_2/blacklist.bed -v > $OUTDIR/peaks_2/"${base}"_final.bed
+done
 
 ##making bigwigs of the gene list curated##
 #mkdir $OUTDIR/bigwigs
