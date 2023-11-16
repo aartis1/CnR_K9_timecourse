@@ -227,31 +227,31 @@ ml BEDTools
 
 ##making bigwigs of the gene list curated##
 # sort bga files from  DNA spike in
-ml ucsc
-for infile in $OUTDIR/bdgrphs/*norm.bga
-do
-  base=$(basename ${infile} .norm.bga)
-  bedSort $infile $OUTDIR/bdgrphs/${base}.norm_sort.bga
-done
-
-mkdir $OUTDIR/bigwigs_2
-ml ucsc
-for infile in $OUTDIR/bdgrphs/*.norm_sort.bga
-do
- base=$(basename ${infile} .norm_sort.bga)
-bedGraphToBigWig $infile $OUTDIR/genome/chrNameLength.txt $OUTDIR/bigwigs_2/${base}.bw
-done
+# ml ucsc
+# for infile in $OUTDIR/bdgrphs/*norm.bga
+# do
+#   base=$(basename ${infile} .norm.bga)
+#   bedSort $infile $OUTDIR/bdgrphs/${base}.norm_sort.bga
+# done
+#
+# mkdir $OUTDIR/bigwigs_2
+# ml ucsc
+# for infile in $OUTDIR/bdgrphs/*.norm_sort.bga
+# do
+#  base=$(basename ${infile} .norm_sort.bga)
+# bedGraphToBigWig $infile $OUTDIR/genome/chrNameLength.txt $OUTDIR/bigwigs_2/${base}.bw
+# done
 
 ###making bws of the mean of the replicates for profile plots
-# ml deepTools
-# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_1.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_rep1rep2.bw
-# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/2.5hpf_K9_AVG.bw
-#
-# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_1.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_rep1rep2.bw
-# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/4.5hpf_K9_AVG.bw
-#
-# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_1.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_rep1rep2.bw
-# bigwigCompare -b1 $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs/bigwigs_AA/24hpf_K9_AVG.bw
+ml deepTools
+bigwigCompare -b1 $OUTDIR/bigwigs_2/2.5hpf_K9_1.bw -b2 $OUTDIR/bigwigs_2/2.5hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs_2/2.5hpf_K9_rep1rep2.bw
+bigwigCompare -b1 $OUTDIR/bigwigs_2/2.5hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs_2/2.5hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs_2/2.5hpf_K9_AVG.bw
+
+bigwigCompare -b1 $OUTDIR/bigwigs_2/4.5hpf_K9_1.bw -b2 $OUTDIR/bigwigs_2/4.5hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs_2/4.5hpf_K9_rep1rep2.bw
+bigwigCompare -b1 $OUTDIR/bigwigs_2/4.5hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs_2/4.5hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs_2/4.5hpf_K9_AVG.bw
+
+bigwigCompare -b1 $OUTDIR/bigwigs_2/24hpf_K9_1.bw -b2 $OUTDIR/bigwigs_2/24hpf_K9_2.bw --operation add --scaleFactors 0.333:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs_2/24hpf_K9_rep1rep2.bw
+bigwigCompare -b1 $OUTDIR/bigwigs_2/24hpf_K9_rep1rep2.bw -b2 $OUTDIR/bigwigs_2/24hpf_K9_3.bw --operation add --scaleFactors 1:0.333 -bs 10 -p 20 -o $OUTDIR/bigwigs_2/24hpf_K9_AVG.bw
 
 
 ###STUFF TO FIGURE OUT LATER###
