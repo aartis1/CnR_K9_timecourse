@@ -196,11 +196,34 @@ module load Homer/
 ml BEDTools
 
 ##intersect the peaks with the blacklist file to make sure we aren't looking at sticky regions before this step
-for infile in $OUTDIR/peaks_2/*all.bed
+# for infile in $OUTDIR/peaks_2/*all.bed
+# do
+#   base=$( basename ${infile} _repPeaks_all.bed)
+#   bedtools intersect -a $infile -b $OUTDIR/peaks_2/blacklist.bed -v > $OUTDIR/peaks_2/"${base}"_final.bed
+# done
+
+####peak annotation####
+curl -s ftp://ftp.ensembl.org/pub/release-98/gtf/danio_rerio/Danio_rerio.GRCz11.98.gtf.gz | gunzip -c > $OUTDIR/refann.gtf
+mkdir $OUTDIR/peaks_2/ann
+
+for infile in $OUTDIR/peaks_2/*final.bed
 do
-  base=$( basename ${infile} _repPeaks_all.bed)
-  bedtools intersect -a $infile -b $OUTDIR/peaks_2/blacklist.bed -v > $OUTDIR/peaks_2/"${base}"_final.bed
+  base=$( basename ${infile} final.bed)
+  annotatePeaks.pl $infile danRer11 -gtf $OUTDIR/refann.gtf > $OUTDIR/peaks_2/ann/${base}.maskann.txt
 done
+
+for infile in $OUTDIR/peaks_2/ann/*maskann.txt
+do
+  base=$(basename ${infile} .maskann.txt)
+  awk -F'\t' 'sqrt($10*$10) <=1000' $infile > $OUTDIR/peaks_2/ann/${base}.1000bp_ann.txt
+done
+
+for infile in $OUTDIR/peaks_2/ann/*maskann.txt
+do
+  base=$(basename ${infile} .maskann.txt)
+  awk -F'\t' 'sqrt($10*$10) >=1000' $infile | awk '{print $2 "\t" $3 "\t" $4 }' > $OUTDIR/peaks_2/ann/${base}.MOREthan1000bp.bed
+done
+
 
 ##making bigwigs of the gene list curated##
 #mkdir $OUTDIR/bigwigs
