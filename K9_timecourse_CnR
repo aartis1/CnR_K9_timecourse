@@ -203,36 +203,44 @@ ml BEDTools
 # done
 
 ####peak annotation####
-curl -s ftp://ftp.ensembl.org/pub/release-98/gtf/danio_rerio/Danio_rerio.GRCz11.98.gtf.gz | gunzip -c > $OUTDIR/refann.gtf
-mkdir $OUTDIR/peaks_2/ann
-
-for infile in $OUTDIR/peaks_2/*final.bed
-do
-  base=$( basename ${infile} final.bed)
-  annotatePeaks.pl $infile danRer11 -gtf $OUTDIR/refann.gtf > $OUTDIR/peaks_2/ann/${base}.maskann.txt
-done
-
-for infile in $OUTDIR/peaks_2/ann/*maskann.txt
-do
-  base=$(basename ${infile} .maskann.txt)
-  awk -F'\t' 'sqrt($10*$10) <=1000' $infile > $OUTDIR/peaks_2/ann/${base}.1000bp_ann.txt
-done
-
-for infile in $OUTDIR/peaks_2/ann/*maskann.txt
-do
-  base=$(basename ${infile} .maskann.txt)
-  awk -F'\t' 'sqrt($10*$10) >=1000' $infile | awk '{print $2 "\t" $3 "\t" $4 }' > $OUTDIR/peaks_2/ann/${base}.MOREthan1000bp.bed
-done
+# curl -s ftp://ftp.ensembl.org/pub/release-98/gtf/danio_rerio/Danio_rerio.GRCz11.98.gtf.gz | gunzip -c > $OUTDIR/refann.gtf
+# mkdir $OUTDIR/peaks_2/ann
+#
+# for infile in $OUTDIR/peaks_2/*final.bed
+# do
+#   base=$( basename ${infile} final.bed)
+#   annotatePeaks.pl $infile danRer11 -gtf $OUTDIR/refann.gtf > $OUTDIR/peaks_2/ann/${base}.maskann.txt
+# done
+#
+# for infile in $OUTDIR/peaks_2/ann/*maskann.txt
+# do
+#   base=$(basename ${infile} .maskann.txt)
+#   awk -F'\t' 'sqrt($10*$10) <=1000' $infile > $OUTDIR/peaks_2/ann/${base}.1000bp_ann.txt
+# done
+#
+# for infile in $OUTDIR/peaks_2/ann/*maskann.txt
+# do
+#   base=$(basename ${infile} .maskann.txt)
+#   awk -F'\t' 'sqrt($10*$10) >=1000' $infile | awk '{print $2 "\t" $3 "\t" $4 }' > $OUTDIR/peaks_2/ann/${base}.MOREthan1000bp.bed
+# done
 
 
 ##making bigwigs of the gene list curated##
-#mkdir $OUTDIR/bigwigs
-# ml ucsc
-# for infile in $OUTDIR/bedgraphs/*.norm_sort.bga
-# do
-#  base=$(basename ${infile} .norm_sort.bga)
-# bedGraphToBigWig $infile $OUTDIR/ref/chrNameLength.txt $OUTDIR/bigwigs/bigwigs_AA/${base}.bw
-# done
+# sort bga files from  DNA spike in
+ml ucsc
+for infile in $OUTDIR/bdgrphs/*norm.bga
+do
+  base=$(basename ${infile} .norm.bga)
+  bedSort $infile $OUTDIR/bdgrphs/${base}.norm_sort.bga
+done
+
+mkdir $OUTDIR/bigwigs_2
+ml ucsc
+for infile in $OUTDIR/bdgrphs/*.norm_sort.bga
+do
+ base=$(basename ${infile} .norm_sort.bga)
+bedGraphToBigWig $infile $OUTDIR/genome/chrNameLength.txt $OUTDIR/bigwigs_2/${base}.bw
+done
 
 ###making bws of the mean of the replicates for profile plots
 # ml deepTools
