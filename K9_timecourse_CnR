@@ -145,9 +145,9 @@ ml BEDTools
 
 
 ##spike in normalization
-ml BEDTools
-mkdir $OUTDIR/bdgrphs
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
+# ml BEDTools
+# mkdir $OUTDIR/bdgrphs
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_1.norm.bga
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_2.norm.bga
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_3.norm.bga
@@ -158,30 +158,30 @@ sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.be
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_2_nodups.btb.bed $OUTDIR/bams/24hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_2.norm.bga
 # sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_3_nodups.btb.bed $OUTDIR/bams/24hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_3.norm.bga
 
-##peak calling
-# module load Homer/
-# mkdir $OUTDIR/peaks_2
-#
-# for infile in $OUTDIR/bdgrphs/*.norm.bga
-#   do base=$(basename ${infile} .norm.bga)
-#   cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks_2/${base}.bgato.bed
-# done
-#
-# for infile in $OUTDIR/peaks_2/*bgato.bed
-#   do base=$(basename ${infile} .bgato.bed)
-#   makeTagDirectory $OUTDIR/peaks_2/${base}.BtB.tagdir $infile -format bed
-# done
+#peak calling
+module load Homer/
+mkdir $OUTDIR/peaks_2
 
-# for infile in $OUTDIR/peaks_2/*K9*.tagdir w/ IgG as an input
-#   do base=$(basename ${infile} .BtB.tagdir)
-#   findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -o $OUTDIR/peaks_2/${base}.txt
-# done
-#
-# for infile in $OUTDIR/peaks_2/*.txt
-# do
-#   base=$(basename ${infile} .txt)
-#   sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks_2/${base}.peaks.bed
-# done
+for infile in $OUTDIR/bdgrphs/*.norm.bga
+  do base=$(basename ${infile} .norm.bga)
+  cat $infile | awk '{print $1 "\t" $2 "\t" $3 "\t" "+" "\t" "+" "\t" "+"}' > $OUTDIR/peaks_2/${base}.bgato.bed
+done
+
+for infile in $OUTDIR/peaks_2/*bgato.bed
+  do base=$(basename ${infile} .bgato.bed)
+  makeTagDirectory $OUTDIR/peaks_2/${base}.BtB.tagdir $infile -format bed
+done
+
+for infile in $OUTDIR/peaks_2/*K9*.tagdir w/ IgG as an input
+  do base=$(basename ${infile} .BtB.tagdir)
+  findPeaks $infile -style histone -minDist 1000 -gsize 1.5e9 -F 4 -i $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -o $OUTDIR/peaks_2/${base}.txt
+done
+
+for infile in $OUTDIR/peaks_2/*.txt
+do
+  base=$(basename ${infile} .txt)
+  sed '/^#/d' $infile | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" $8 "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' | sed 's/\.000000//g' > $OUTDIR/peaks_2/${base}.peaks.bed
+done
 
 ##intersecting peaks across replicates using Chipr
 # ml ChIP-R
