@@ -147,16 +147,16 @@ ml BEDTools
 ##spike in normalization
 ml BEDTools
 mkdir $OUTDIR/bdgrphs
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli_nodups.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_3.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_3.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_1_nodups.btb.bed $OUTDIR/bams/24hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_1.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_2_nodups.btb.bed $OUTDIR/bams/24hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_2.norm.bga
-sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_3_nodups.btb.bed $OUTDIR/bams/24hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_3.norm.bga
+sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/IgG_danio_nodups.btb.bed $OUTDIR/bams/IgG_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/timecourse_IgG_merged.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/2.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/2.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/2.5hpf_K9_3.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_1_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_2_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/4.5hpf_K9_3_nodups.btb.bed $OUTDIR/bams/4.5hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/4.5hpf_K9_3.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_1_nodups.btb.bed $OUTDIR/bams/24hpf_K9_1_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_1.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_2_nodups.btb.bed $OUTDIR/bams/24hpf_K9_2_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_2.norm.bga
+# sh /home/ara67776/scripts/DNAspike_in.kd.sh $OUTDIR/bams/24hpf_K9_3_nodups.btb.bed $OUTDIR/bams/24hpf_K9_3_ecoli.btb.bed 100000 bga $OUTDIR/genome/chrNameLength.txt 1 1000 $OUTDIR/bdgrphs/24hpf_K9_3.norm.bga
 
 ##peak calling
 # module load Homer/
