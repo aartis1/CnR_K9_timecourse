@@ -193,7 +193,7 @@ ml BEDTools
 # findPeaks $OUTDIR/peaks_2/timecourse_IgG_merged.BtB.tagdir -style factor -o $OUTDIR/peaks_2/IgG.txt
 # sed '/^#/d' $OUTDIR/peaks_2/IgG.txt | awk '{print $2 "\t" $3 "\t" $4 "\t" $1 "\t" "1" "\t" $5 "\t" $6 "\t" $12 "\t" "-1"}' > $OUTDIR/peaks_2/blacklist.bed
 
-ml BEDTools
+# ml BEDTools
 
 ##intersect the peaks with the blacklist file to make sure we aren't looking at sticky regions before this step
 # for infile in $OUTDIR/peaks_2/*all.bed
